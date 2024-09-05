@@ -1,21 +1,30 @@
 [project]
 name = "Backend"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "The Backend for the Fex Hackathon Project"
 authors = [
-    {name = "jonatasperaza", email = "jonatassilvaperaza@gmail.com"},
+    { name = "AnthonyLoche", email = "anthonylocheifc@gmail.com" },
+    { name = "jonatasperaza", email = "jonatassilvaperaza@gmail.com" },
 ]
 dependencies = [
-    "django>=5.1",
+    "django>=4.2.13",
+    "django-rest-framework>=0.1.0",
+    "passage-identity>=2.5.0",
+    "pydotplus>=2.0.2",
+    "django-cors-headers>=4.4.0",
+    "openapi-client>=1.1.7",
+    "drf-spectacular>=0.27.2",
+    "openapi-python-client>=0.21.4",
+    "django-extensions>=3.2.3",
+    "python-dotenv>=1.0.1",
 ]
 requires-python = ">=3.12"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
-
 
 [tool.pdm]
 distribution = true
@@ -31,3 +40,4 @@ test = "python manage.py test"
 startapp = "python manage.py startapp {args}"
 loaddata = "python manage.py loaddata {args}"
 dumpdata = "python manage.py dumpdata {args}"
+model = "python manage.py graph_models -a -g -o models.png"
