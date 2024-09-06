@@ -1,10 +1,16 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
-from core.authUser.models import Client, Address, User
 from rest_framework.response import Response
-from core.authUser.serializers import ClientCreateSerializer, ClientSerializer
-from core.authUser.models import ClientLegalPerson, ClientPhysicalPerson
 from django.conf import settings
+from core.authUser.models import (
+    Client,
+    Address,
+    User,
+    ClientLegalPerson,
+    ClientPhysicalPerson,
+)
+from core.authUser.serializers import ClientCreateSerializer, ClientSerializer
+from core.send_mail.mail import send_welcome_email
 from passageidentity import Passage, PassageError
 from rest_framework.exceptions import AuthenticationFailed
 
@@ -61,6 +67,13 @@ class ClientViewSet(ModelViewSet):
 
         address_data.pop("user", None)
         Address.objects.create(user=user, **address_data)
-        
+
+        subject = "Bem-vindo(a) a Fex!"
+        message = f"Olá {user.name}, seja bem-vindo(a) a Fex!\n Aproveite nossos serviços!\n Dados do Seu Cadastro:\n Atenciosamente,\nFex."
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [user.email]
+
+        send_welcome_email(subject, message, from_email, recipient_list)
+
         output_serializer = ClientSerializer(client)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)

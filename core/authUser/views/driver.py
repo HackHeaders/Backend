@@ -5,6 +5,7 @@ from django.db import transaction
 from django.conf import settings
 from passageidentity import Passage, PassageError
 from rest_framework.exceptions import AuthenticationFailed
+from core.send_mail.mail import send_welcome_email
 from core.authUser.serializers import (
     DriverCreateSerializer,
     DriverSerializer,
@@ -16,6 +17,7 @@ PASSAGE_APP_ID = settings.PASSAGE_APP_ID
 PASSAGE_API_KEY = settings.PASSAGE_API_KEY
 PASSAGE_AUTH_STRATEGY = settings.PASSAGE_AUTH_STRATEGY
 psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATEGY)
+
 
 class DriverViewSet(ModelViewSet):
     queryset = Driver.objects.all()
@@ -62,6 +64,13 @@ class DriverViewSet(ModelViewSet):
         if address_data:
             address_data.pop("user", None)
             Address.objects.create(user=user, **address_data)
+
+        subject = "Bem-vindo(a) a Fex!"
+        message = f"Olá {user.name}, foi realizado o seu cadastro como motorista da Fex.\nMuito obrigado por fazer parte da nossa equipe!\nDados do seu cadastro:\nCNH: {driver_create.cnh}\nTipo da CNH: {driver_create.type_cnh}\nCPF: {driver_create.cpf}\nAtenciosamente,\nFex"
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [user.email]
+
+        send_welcome_email(subject, message, from_email, recipient_list)
 
         output_serializer = DriverSerializer(driver_create)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)
