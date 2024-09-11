@@ -22,7 +22,7 @@ class Vehicle(models.Model):
     n_axes = models.IntegerField()
     type_vehicle = models.CharField(max_length=45)
     status = models.IntegerField(choices=StatusVehicle.choices,  default=StatusVehicle.STOPPED)
-    tb_mark = models.ForeignKey(Mark, on_delete=models.PROTECT, null=True)
+    tb_mark = models.ForeignKey(Mark, on_delete=models.PROTECT, null=True, blank=True)
 
 
     def __str__(self):

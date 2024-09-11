@@ -8,7 +8,7 @@ class MarkSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class VehicleSerializer(serializers.ModelSerializer):
-    tb_mark = MarkSerializer()
+    tb_mark = serializers.PrimaryKeyRelatedField(queryset=Mark.objects.all())
 
     class Meta:
         model = Vehicle
