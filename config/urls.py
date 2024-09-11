@@ -7,7 +7,6 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
-
 from core.authUser.views import (
     ClientViewSet,
     UserViewSet,
