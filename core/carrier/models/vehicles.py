@@ -24,7 +24,6 @@ class Vehicle(models.Model):
     status = models.IntegerField(choices=StatusVehicle.choices,  default=StatusVehicle.STOPPED)
     tb_mark = models.ForeignKey(Mark, on_delete=models.PROTECT, null=True, blank=True)
 
-
     def __str__(self):
         return self.plate
     
