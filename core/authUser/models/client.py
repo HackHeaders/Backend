@@ -5,7 +5,7 @@ class Client(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
 
     def __str__(self):
-        return self.cpf
+        return self.user.name #deu erro 29/09/2024_16:52 estava self.cpf reclamava que client nã otinha cpf revisar os selfs
     
     class Meta:
         verbose_name = 'Client'
