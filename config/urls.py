@@ -9,7 +9,7 @@ from drf_spectacular.views import (
 )
 
 from core.authUser.views import ClientViewSet, UserViewSet, DriverViewSet, OfficesViewSet, EmployeViewSet
-from core.carrier.views import VehicleViewSet, MarkViewSet
+from core.carrier.views import VehicleViewSet, MarkViewSet, PaymentViewSet, DeliveryViewSet
 
 router = DefaultRouter()
 
@@ -20,6 +20,8 @@ router.register(r'offices', OfficesViewSet)
 router.register(r'employe', EmployeViewSet)
 router.register(r'mark', MarkViewSet)
 router.register(r'vehicle', VehicleViewSet)
+router.register(r'payment', PaymentViewSet)
+router.register(r'delivery', DeliveryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
