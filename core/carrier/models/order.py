@@ -2,7 +2,6 @@ from django.db import models
 from core.carrier.models import Vehicle, Delivery, Payment
 from core.authUser.models import Client, Driver
 
-
 class Order(models.Model):
     class Status(models.IntegerChoices):
 
