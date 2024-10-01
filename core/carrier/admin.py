@@ -1,5 +1,5 @@
 from django.contrib import admin
-from carrier.models import Delivery, Mark, Order, Payment, Vehicle
+from core.carrier.models import Delivery, Mark, Order, Payment, Vehicle
 
 admin.site.register(Delivery)
 admin.site.register(Mark)
