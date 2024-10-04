@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from core.carrier.models import Order, ItemOrder
 
 from core.carrier.models import (
     Order,
@@ -29,25 +30,27 @@ class ItemOrderSerializer(serializers.ModelSerializer):
         model = ItemOrder
         fields = [
             "id",
-            "name", 
-            "quantity", 
-            "observation", 
-            "weight", 
-            "height", 
-            # "id_order"    
-            ]
+            "name",
+            "quantity",
+            "observation",
+            "weight",
+            "height",
+            # "id_order"
+        ]
+
 
 class ItemOrderCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOrder
         fields = [
             "id",
-            "name", 
-            "quantity", 
-            "observation", 
-            "weight", 
-            "height",    
+            "name",
+            "quantity",
+            "observation",
+            "weight",
+            "height",
         ]
+
 
 class OrderListSerializer(serializers.ModelSerializer):
     delivery = serializers.SerializerMethodField()
@@ -61,6 +64,7 @@ class OrderListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
+
         fields = [
             "id",
             "status",
@@ -131,7 +135,9 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     payment = PaymentSerializer()
     address_delivery = AddressOrderSerializer()
     address_collect = AddressOrderSerializer()
-    items = ItemOrderSerializer(many=True)  # Campo para os itens, permitindo múltiplos itens
+    items = ItemOrderSerializer(
+        many=True
+    )  # Campo para os itens, permitindo múltiplos itens
 
     class Meta:
         model = Order
@@ -146,5 +152,21 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             "payment",
             "address_delivery",
             "address_collect",
-            "items",  # Adicionando o campo de itens
+            "items", 
         ]
+        fields = [
+            "id",
+            "status",
+            "order_date",
+            "id_vehicle",
+            "id_driver",
+            "id_delivery",
+            "id_payment",
+            "id_client",
+        ]
+
+
+class ItemOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemOrder
+        fields = ["name", "quantity", "observation", "weight", "height", "id_order"]

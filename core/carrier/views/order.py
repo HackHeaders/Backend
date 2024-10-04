@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+
 from core.carrier.models import Order, ItemOrder, Delivery, Payment, AddressOrder
 from rest_framework.response import Response
 from rest_framework import status
@@ -86,7 +87,6 @@ class OrderViewSet(ModelViewSet):
         # Retornando a ordem criada com o serializer de listagem
         output_serializer = OrderListSerializer(order_data)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)
-
 
 class ItemOrderViewSet(ModelViewSet):
     queryset = ItemOrder.objects.all()

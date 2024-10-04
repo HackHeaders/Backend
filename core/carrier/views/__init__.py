@@ -6,3 +6,4 @@ from .order import OrderViewSet, ItemOrderViewSet
 from .vehicles import MarkViewSet, VehicleViewSet
 from .delivery import DeliveryViewSet
 from .order import OrderViewSet
+from .order import OrderViewSet, ItemOrderViewSet
