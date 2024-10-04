@@ -33,4 +33,20 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
+
+class ItemOrder(models.Model):
+    name = models.CharField(max_length=255)
+    quantity = models.IntegerField()
+    observation = models.TextField()
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    height = models.DecimalField(max_digits=5, decimal_places=2)
+    id_order = models.ForeignKey(Order, on_delete=models.PROTECT, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Item Order'
+        verbose_name_plural = 'Items Orders'
+
     

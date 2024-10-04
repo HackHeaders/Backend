@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 
 from core.authUser.views import ClientViewSet, UserViewSet, DriverViewSet, OfficesViewSet, EmployeViewSet
-from core.carrier.views import VehicleViewSet, MarkViewSet, PaymentViewSet, OrderViewSet, DeliveryViewSet
+from core.carrier.views import VehicleViewSet, MarkViewSet, PaymentViewSet, OrderViewSet, DeliveryViewSet, ItemOrderViewSet
 
 router = DefaultRouter()
 
@@ -19,6 +19,7 @@ router.register(r'vehicle', VehicleViewSet)
 router.register(r'payment', PaymentViewSet)
 router.register(r'delivery', DeliveryViewSet)
 router.register(r'order', OrderViewSet)
+router.register(r'item-order', ItemOrderViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
