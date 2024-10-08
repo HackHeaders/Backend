@@ -7,6 +7,8 @@ class Payment(models.Model):
     status = models.CharField(max_length=50)
     payment_method = models.CharField(max_length=50)
     payer_email = models.EmailField(null=True, blank=True)
+    payer_identification_type = models.CharField(max_length=50, null=True, blank=True)
+    payer_identification_number = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

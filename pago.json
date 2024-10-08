@@ -1,0 +1,171 @@
+{
+  "transaction_amount": 1,
+  "description": "skibidi",
+  "payment_method": "PIX",
+  "payer_email": "jonatassilvaperaza@gmail.com",
+  "payer_identification_type": "CPF",
+  "payer_identification_number": "13754587951",
+  "payment_response": {
+    "status": 201,
+    "response": {
+      "accounts_info": null,
+      "acquirer_reconciliation": [],
+      "additional_info": {
+        "authentication_code": null,
+        "available_balance": null,
+        "nsu_processadora": null
+      },
+      "authorization_code": null,
+      "binary_mode": false,
+      "brand_id": null,
+      "build_version": "3.72.0-rc-3",
+      "call_for_authorize_id": null,
+      "callback_url": null,
+      "captured": true,
+      "card": {},
+      "charges_details": [
+        {
+          "accounts": {
+            "from": "collector",
+            "to": "mp"
+          },
+          "amounts": {
+            "original": 0.01,
+            "refunded": 0
+          },
+          "client_id": 0,
+          "date_created": "2024-10-07T21:55:30.546-04:00",
+          "id": "89933008780-001",
+          "last_updated": "2024-10-07T21:55:30.546-04:00",
+          "metadata": {
+            "source": "rule-engine"
+          },
+          "name": "mercadopago_fee",
+          "refund_charges": [],
+          "reserve_id": null,
+          "type": "fee"
+        }
+      ],
+      "collector_id": 1138000306,
+      "corporation_id": null,
+      "counter_currency": null,
+      "coupon_amount": 0,
+      "currency_id": "BRL",
+      "date_approved": null,
+      "date_created": "2024-10-07T21:55:30.543-04:00",
+      "date_last_updated": "2024-10-07T21:55:30.543-04:00",
+      "date_of_expiration": "2024-10-08T21:55:30.299-04:00",
+      "deduction_schema": null,
+      "description": "skibidi",
+      "differential_pricing_id": null,
+      "external_reference": null,
+      "fee_details": [],
+      "financing_group": null,
+      "id": 89933008780,
+      "installments": 1,
+      "integrator_id": null,
+      "issuer_id": "12501",
+      "live_mode": true,
+      "marketplace_owner": null,
+      "merchant_account_id": null,
+      "merchant_number": null,
+      "metadata": {},
+      "money_release_date": null,
+      "money_release_schema": null,
+      "money_release_status": "released",
+      "notification_url": null,
+      "operation_type": "regular_payment",
+      "order": {},
+      "payer": {
+        "email": null,
+        "entity_type": null,
+        "first_name": null,
+        "id": "1807436309",
+        "identification": {
+          "number": null,
+          "type": null
+        },
+        "last_name": null,
+        "operator_id": null,
+        "phone": {
+          "area_code": null,
+          "extension": null,
+          "number": null
+        },
+        "type": null
+      },
+      "payment_method": {
+        "id": "pix",
+        "issuer_id": "12501",
+        "type": "bank_transfer"
+      },
+      "payment_method_id": "pix",
+      "payment_type_id": "bank_transfer",
+      "platform_id": null,
+      "point_of_interaction": {
+        "application_data": {
+          "name": null,
+          "version": null
+        },
+        "business_info": {
+          "branch": null,
+          "sub_unit": "sdk",
+          "unit": "online_payments"
+        },
+        "location": {
+          "source": null,
+          "state_id": null
+        },
+        "transaction_data": {
+          "bank_info": {
+            "collector": {
+              "account_holder_name": "Sunamita Teixeira Silva Peraza",
+              "account_id": null,
+              "long_name": null,
+              "transfer_account_id": null
+            },
+            "is_same_bank_account_owner": null,
+            "origin_bank_id": null,
+            "origin_wallet_id": null,
+            "payer": {
+              "account_id": null,
+              "external_account_id": null,
+              "id": null,
+              "identification": {},
+              "long_name": null
+            }
+          },
+          "bank_transfer_id": null,
+          "e2e_id": null,
+          "financial_institution": null,
+          "qr_code": "00020126580014br.gov.bcb.pix013603fff190-7f9f-43ee-bb38-083eb807869a52040000530398654041.005802BR5925PERAZASUNAMITA202206062026009Sao Paulo62240520mpqrinter899330087806304AD92",
+          "qr_code_base64": "iVBORw0KGgoAAAANSUhEUgAABWQAAAVkAQAAAAB79iscAAAOLUlEQVR4Xu3XW5IbuQ5F0ZyB5z9LzyA7jAfxonQjbosuZcc+HzJJgODK+vN1Pyi/r37yzUF7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQnkvWXj2/7CxXf632338Kv2uzVKVQYlOk2fvaWa625CfXctsm/+YqWrTrzIIWrQYtWg1atBq0aDVo0Wp+XBvnZRsXmzFk450AlG37ltEc3xwtaNFqC1q02oIWrbagRastaNFqC1q02vKf0cb9ccuTteVa/pbgSV58VS5I/N22XVPW8l2bVD1o+7ttu6as5bs2qXrQ9nfbdk1Zy3dtUvWg7e+27Zqylu/apOpB299t2zVlLd+1SdWDtr/btmvKWr5rk6oHbX+3bdeUtXzXJlUP2v5u264pa/muTaoetP3dtl1T1vJdm1Q9aPu7bbumrOW7Nql6vlnrb7efTPHE3ZwYcGWeZDd5z7BR42prQ7uym7xn2KhxtbWhXdlN3jNs1Lja2tCu7CbvGTZqXG1taFd2k/cMGzWutja0K7vJe4aNGldbG9qV3eQ9w0aNq60N7cpu8p5ho8bV1oZ2ZTd5z7BR42prQ7uym7xn2KhxtbU9SRvb0dda4lpJ5vlq4OWDZFuqaK0lrpWgfdkW29GHtlbRWktcK0H7si22ow9traK1lrhWgvZlW2xHH9paRWstca0E7cu22I6+b9C2bZxtrnrkrFDGqiQ3R+a1sUU7n02mP0GLVoMWrQYtWg1atBq0aDVov17b4ry//TMZaD/1MxloP/UzGWg/9TMZaD/1MxloP/UzGWg/9TMZaD/1MxloP/UzGWg/9TMZj9e+jF3w//pZ/H+R0RI/diZV6fMBzRNDbfs+aNFq0KLVoEWrQYtWgxatBi1azZO1Dojkx14ktxfKkEl2+LJtT+bH0b7YWvtEDSNaT25Hi1aDFq0GLVoNWrQatGg1f1V7W3Hw5qQAyCqq9hMF6fMzK5QBLRnaWtCi1aBFq0GLVoMWrQYtWg1atJrnamN6JguvnMVj+dlizN8Xk+ODPG1UrsafxaegjS3atURbJ6P1q2h1np1KAW05QzuraNFq0KLVoP1JbfGsDo1Nih+/kVvizO/aWVRLGt7SvhSttMSZ37WzqJagzYPR9qD1G2gvtGhvtHEDVrQYtWg1atBq0aDVoNWjRagpaODPBtvDEafGk5uBV/A13mjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmjPBe25oD0XtOeC9lzQngvac0F7LmL+b/pDfz9t50PH0nZXssDQAAAABJRU5ErkJggg==",
+          "ticket_url": "https://www.mercadopago.com.br/payments/89933008780/ticket?caller_id=1138000306&hash=c64975e43b8a08edff4069e28f7b8724"
+        }
+      },
+      "pos_id": null,
+      "processing_mode": "aggregator",
+      "refunds": [],
+      "shipping_amount": 0,
+      "shipping_cost": 0,
+      "site_id": "MLB",
+      "statement_descriptor": null,
+      "status": "pending",
+      "status_detail": "pending_waiting_transfer",
+      "store_id": null,
+      "taxes_amount": 0,
+      "transaction_amount": 1,
+      "transaction_amount_refunded": 0,
+      "transaction_details": {
+        "acquirer_reference": null,
+        "external_resource_url": null,
+        "financial_institution": null,
+        "installment_amount": 1,
+        "net_received_amount": 0.99,
+        "overpaid_amount": 0,
+        "payment_method_reference_id": null,
+        "total_paid_amount": 1
+      }
+    }
+  }
+}

@@ -8,16 +8,16 @@ sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
 def create_payment(data):
     print(data)
-    breakpoint()
+
     payment_data = {
         "transaction_amount": data.get('transaction_amount'),
         "description": data.get('description'),
         "payment_method_id": "pix",
         "payer": {
-            "email": data.get('email'),
+            "email": data.get('payer_email'),
             "identification": {
-                "type": data.get('identificationType'),
-                "number": data.get('number') 
+                "type": data.get('payer_identification_type'),
+                "number": data.get('payer_identification_number') 
             }
         }
     }
@@ -33,7 +33,9 @@ def create_payment(data):
             description=data.get('description'),
             status=payment['status'],
             payment_method="pix",
-            payer_email=data.get('email')
+            payer_email=data.get('payer_email'),
+            payer_identification_type=data.get('payer_identification_type'),
+            payer_identification_number=data.get('payer_identification_number')
         )
         return Response(data, status=status.HTTP_201_CREATED)
     else:
