@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from core.carrier.models import Delivery
 
+
 class DeliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery

@@ -2,6 +2,7 @@ from django.db import models
 from core.carrier.models import Vehicle, Delivery, Payment
 from core.authUser.models import Client, Driver
 
+
 class Order(models.Model):
     class Status(models.IntegerChoices):
 
@@ -37,7 +38,8 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return f'{str(self.status)}'
+        return f"{str(self.status)}"
+
     class Meta:
         verbose_name = "Order"
         verbose_name_plural = "Orders"
@@ -54,10 +56,8 @@ class ItemOrder(models.Model):
     )
 
     def __str__(self):
-        return self.name() 
+        return self.name()
 
     class Meta:
         verbose_name = "Item Order"
         verbose_name_plural = "Items Orders"
-
-    

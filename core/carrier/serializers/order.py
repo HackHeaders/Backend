@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from core.carrier.models import Order, ItemOrder
-
 from core.carrier.models import (
     Order,
     ItemOrder,
@@ -64,7 +62,6 @@ class OrderListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-
         fields = [
             "id",
             "status",
@@ -152,17 +149,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             "payment",
             "address_delivery",
             "address_collect",
-            "items", 
-        ]
-        fields = [
-            "id",
-            "status",
-            "order_date",
-            "id_vehicle",
-            "id_driver",
-            "id_delivery",
-            "id_payment",
-            "id_client",
+            "items",
         ]
 
 
