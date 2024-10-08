@@ -8,22 +8,9 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-from core.authUser.views import (
-    ClientViewSet,
-    UserViewSet,
-    DriverViewSet,
-    OfficesViewSet,
-    EmployeViewSet,
-)
-from core.carrier.views import (
-    VehicleViewSet,
-    MarkViewSet,
-    PaymentViewSet,
-    OrderViewSet,
-    DeliveryViewSet,
-    ItemOrderViewSet,
-    AddressOrderViewSet,
-)
+
+from core.authUser.views import ClientViewSet, UserViewSet, DriverViewSet, OfficesViewSet, EmployeViewSet
+from core.carrier.views import VehicleViewSet, MarkViewSet, PaymentViewSet, OrderViewSet, DeliveryViewSet, ItemOrderViewSet, PaymentViewSet, AddressOrderViewSet
 
 router = DefaultRouter()
 
@@ -42,6 +29,7 @@ router.register(r"address-order", AddressOrderViewSet)
 
 
 urlpatterns = [path("admin/", admin.site.urls), path("api/", include(router.urls))]
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
