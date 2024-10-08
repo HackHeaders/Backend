@@ -22,8 +22,6 @@ class OrderViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        breakpoint()
-
         delivery_data = Delivery.objects.create(
             driver_position=serializer.validated_data["delivery"]["driver_position"],
             date_preview_delivery=serializer.validated_data["delivery"][

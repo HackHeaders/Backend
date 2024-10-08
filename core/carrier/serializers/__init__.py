@@ -1,10 +1,7 @@
-from core.authUser.serializers import UserSerializer, ClientSerializer, DriverSerializer
-
-from .vehicles import MarkSerializer, VehicleSerializer
-from .payment import PaymentSerializer
-from .delivery import DeliverySerializer
+from core.authUser.serializers import ClientSerializer, DriverSerializer, EmployeSerializer
 from .addressOrder import AddressOrderSerializer
-from .order import OrderListSerializer, ItemOrderSerializer, OrderCreateSerializer
+from .delivery import DeliverySerializer
+from .payment import PaymentSerializer
+from .vehicles import VehicleSerializer
 from .card import CardSerializer
-
-
+from .order import OrderListSerializer, ItemOrderSerializer, OrderCreateSerializer

@@ -39,8 +39,9 @@ class ClientViewSet(ModelViewSet):
                     {"email": email, user_metadata: user_metadata}
                 )
                 return psg_user
-            except PassageError as e:
-                raise AuthenticationFailed(detail=str(e))
+            except PassageError as error:
+                print(error)
+                raise AuthenticationFailed(error)
 
         create_passage_user(serializer.validated_data["email"])
 
