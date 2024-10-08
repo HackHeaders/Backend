@@ -3,4 +3,5 @@ from .payment import Payment
 from .delivery import Delivery
 from .order import Order, ItemOrder
 from .addressOrder import AddressOrder
+from .cards import Card
 

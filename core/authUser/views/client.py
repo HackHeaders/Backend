@@ -2,6 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from rest_framework.response import Response
 from django.conf import settings
+from django.db import transaction
 from core.authUser.models import (
     Client,
     Address,
@@ -26,7 +27,8 @@ class ClientViewSet(ModelViewSet):
         if self.action == "create":
             return ClientCreateSerializer
         return ClientSerializer
-
+    
+    @transaction.atomic
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

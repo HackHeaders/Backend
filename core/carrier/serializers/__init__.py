@@ -5,4 +5,6 @@ from .payment import PaymentSerializer
 from .delivery import DeliverySerializer
 from .addressOrder import AddressOrderSerializer
 from .order import OrderListSerializer, ItemOrderSerializer, OrderCreateSerializer
+from .card import CardSerializer
+
 
