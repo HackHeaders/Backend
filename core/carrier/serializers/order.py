@@ -26,8 +26,27 @@ from core.carrier.serializers import (
 class ItemOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOrder
-        fields = ["name", "quantity", "observation", "weight", "height", "id_order"]
+        fields = [
+            "id",
+            "name", 
+            "quantity", 
+            "observation", 
+            "weight", 
+            "height", 
+            # "id_order"    
+            ]
 
+class ItemOrderCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemOrder
+        fields = [
+            "id",
+            "name", 
+            "quantity", 
+            "observation", 
+            "weight", 
+            "height",    
+        ]
 
 class OrderListSerializer(serializers.ModelSerializer):
     delivery = serializers.SerializerMethodField()
@@ -37,7 +56,7 @@ class OrderListSerializer(serializers.ModelSerializer):
     client = serializers.SerializerMethodField()
     driver = serializers.SerializerMethodField()
     vehicle = serializers.SerializerMethodField()
-    # items = serializers.SerializerMethodField()
+    items = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
@@ -52,7 +71,7 @@ class OrderListSerializer(serializers.ModelSerializer):
             "payment",
             "address_delivery",
             "address_collect",
-            # "items",
+            "items",
         ]
 
     def get_delivery(self, obj):
@@ -101,9 +120,9 @@ class OrderListSerializer(serializers.ModelSerializer):
             return VehicleSerializer(vehicle).data
         return None
 
-    # def get_items(self, obj):
-    #     items = ItemOrder.objects.filter(id_order=obj)
-    #     return ItemOrderSerializer(items, many=True).data
+    def get_items(self, obj):
+        items = ItemOrder.objects.filter(id_order=obj)
+        return ItemOrderSerializer(items, many=True).data
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -111,6 +130,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     payment = PaymentSerializer()
     address_delivery = AddressOrderSerializer()
     address_collect = AddressOrderSerializer()
+    items = ItemOrderSerializer(many=True)  # Campo para os itens, permitindo múltiplos itens
 
     class Meta:
         model = Order
@@ -125,4 +145,5 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             "payment",
             "address_delivery",
             "address_collect",
+            "items",  # Adicionando o campo de itens
         ]
