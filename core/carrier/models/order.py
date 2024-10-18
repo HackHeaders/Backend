@@ -38,7 +38,7 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return self.status
+        return f'{str(self.status)}'
 
     class Meta:
         verbose_name = "Order"
@@ -56,7 +56,7 @@ class ItemOrder(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.name()  #
 
     class Meta:
         verbose_name = "Item Order"
