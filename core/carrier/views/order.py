@@ -37,20 +37,13 @@ class OrderViewSet(ModelViewSet):
 
         delivery_data = Delivery.objects.create(
             driver_position=serializer.validated_data["delivery"]["driver_position"],
-            date_preview_delivery=serializer.validated_data["delivery"][
-                "date_preview_delivery"
-            ],
-            date_effected_delivery=serializer.validated_data["delivery"][
-                "date_effected_delivery"
-            ],
-            date_preview_colect=serializer.validated_data["delivery"][
-                "date_preview_colect"
-            ],
-            date_effected_colect=serializer.validated_data["delivery"][
-                "date_effected_colect"
-            ],
+            date_preview_delivery=serializer.validated_data["delivery"]["date_preview_delivery"],
+            date_effected_delivery=serializer.validated_data["delivery"]["date_effected_delivery"],
+            date_preview_colect=serializer.validated_data["delivery"]["date_preview_colect"],
+            date_effected_colect=serializer.validated_data["delivery"]["date_effected_colect"],
         )
 
+        # Criando o pagamento
         payment_data = Payment.objects.create(
             value=serializer.validated_data["payment"]["value"],
             status=serializer.validated_data["payment"]["status"],
@@ -58,6 +51,7 @@ class OrderViewSet(ModelViewSet):
             date_payment=serializer.validated_data["payment"]["date_payment"],
         )
 
+        # Criando o pedido (Order)
         order_data = Order.objects.create(
             status=serializer.validated_data["status"],
             id_vehicle=serializer.validated_data["id_vehicle"],
@@ -67,6 +61,7 @@ class OrderViewSet(ModelViewSet):
             id_payment=payment_data,
         )
 
+        # Criando o endereço de entrega
         address_delivery_data = AddressOrder.objects.create(
             street=serializer.validated_data["address_delivery"]["street"],
             number=serializer.validated_data["address_delivery"]["number"],
@@ -77,6 +72,7 @@ class OrderViewSet(ModelViewSet):
             id_order=order_data,
         )
 
+        # Criando o endereço de coleta
         address_collect_data = AddressOrder.objects.create(
             street=serializer.validated_data["address_collect"]["street"],
             number=serializer.validated_data["address_collect"]["number"],
@@ -87,6 +83,7 @@ class OrderViewSet(ModelViewSet):
             id_order=order_data,
         )
 
+        # Criando os itens do pedido
         for item_data in serializer.validated_data["items"]:
             ItemOrder.objects.create(
                 name=item_data["name"],
