@@ -1,0 +1,46 @@
+{
+    "status": 2,
+    "id_vehicle": 1,
+    "id_driver": 1,
+    "id_client": 3,
+    "delivery": {
+      "driver_position": "42.210987, -87.678901",
+      "date_preview_delivery": "2024-10-28",
+      "date_effected_delivery": null,
+      "date_preview_colect": "2024-11-03",
+      "date_effected_colect": null
+    },
+    "payment": {
+      "value": 100.00,
+      "status": "pending",
+      "pix_copyPaste": "ijk012lmn",
+      "date_payment": null
+    },
+    "address_delivery": {
+      "street": "Birch St",
+      "number": "333",
+      "complement": "",
+      "neighborhood": "Westend",
+      "city": "Austin",
+      "state": "TX",
+      "typeAddress": 0
+    },
+    "address_collect": {
+      "street": "Larch St",
+      "number": "444",
+      "complement": "",
+      "neighborhood": "Eastside",
+      "city": "Austin",
+      "state": "TX",
+      "typeAddress": 1
+    },
+    "items": [
+      {
+        "name": "Sofa",
+        "quantity": 1,
+        "observation": "Oversized",
+        "weight": 30.0,
+        "height": 1.0
+      }
+    ]
+  }

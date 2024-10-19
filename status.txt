@@ -1,0 +1,13 @@
+WAITING_PAYMENT = 00, "aguardando pagameto"
+APPROVED_PAYMENT = 01, "pagamento aprovado"
+IN_PREPARATION = 02, "em preparação"
+WAITING_COLLECT = 03, "aguardando coleta"
+IN_PROGRESS = 04, "em andamento"
+ORDER_COLLECTED = 05, "padido coletado"
+READY_DELIVERY = 06, "Pronto para a entrega"
+WAITING_DELIVERY = 07, "aguardando entrega"
+DELIVERED = 08, "entregue"
+FAILURE_DELIVERY = 09, "Falha na entrega"
+RETURNED = 10, "Devolvido"
+CANCELED = 11, "Cancelado"
+

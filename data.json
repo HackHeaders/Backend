@@ -1,0 +1,473 @@
+[
+    {
+      "status": "pending",
+      "id_vehicle": 1,
+      "id_driver": 1,
+      "id_client": 1,
+      "delivery": {
+        "driver_position": "35.123456, -80.987654",
+        "date_preview_delivery": "2024-10-20",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-10-25",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 150.50,
+        "status": "unpaid",
+        "pix_copyPaste": "abc123xyz",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Main St",
+        "number": "123",
+        "complement": "Apt 101",
+        "neighborhood": "Downtown",
+        "city": "Metropolis",
+        "state": "CA",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Elm St",
+        "number": "456",
+        "complement": "Suite 5",
+        "neighborhood": "Westside",
+        "city": "Metropolis",
+        "state": "CA",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Laptop",
+          "quantity": 2,
+          "observation": "Handle with care",
+          "weight": 2.5,
+          "height": 0.5,
+          "id_order": 101
+        }
+      ]
+    },
+    {
+      "status": "delivered",
+      "id_vehicle": 2,
+      "id_driver": 2,
+      "id_client": 2,
+      "delivery": {
+        "driver_position": "35.654321, -81.123456",
+        "date_preview_delivery": "2024-10-15",
+        "date_effected_delivery": "2024-10-15",
+        "date_preview_colect": "2024-10-20",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 200.00,
+        "status": "paid",
+        "pix_copyPaste": "xyz987abc",
+        "date_payment": "2024-10-14"
+      },
+      "address_delivery": {
+        "street": "Broadway",
+        "number": "789",
+        "complement": "",
+        "neighborhood": "Eastside",
+        "city": "Gotham",
+        "state": "NY",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "5th Ave",
+        "number": "321",
+        "complement": "Office 12",
+        "neighborhood": "Downtown",
+        "city": "Gotham",
+        "state": "NY",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Furniture",
+          "quantity": 1,
+          "observation": "Fragile",
+          "weight": 50.0,
+          "height": 1.5,
+          "id_order": 102
+        }
+      ]
+    },
+    {
+      "status": "in_transit",
+      "id_vehicle": 3,
+      "id_driver": 3,
+      "id_client": 3,
+      "delivery": {
+        "driver_position": "36.987654, -79.543210",
+        "date_preview_delivery": "2024-10-22",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-10-28",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 175.75,
+        "status": "unpaid",
+        "pix_copyPaste": "efg456hij",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Market St",
+        "number": "852",
+        "complement": "",
+        "neighborhood": "Southside",
+        "city": "Star City",
+        "state": "TX",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Oak St",
+        "number": "159",
+        "complement": "Building B",
+        "neighborhood": "Northside",
+        "city": "Star City",
+        "state": "TX",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Television",
+          "quantity": 1,
+          "observation": "Large item",
+          "weight": 10.0,
+          "height": 0.8,
+          "id_order": 103
+        }
+      ]
+    },
+    {
+      "status": "pending",
+      "id_vehicle": 4,
+      "id_driver": 4,
+      "id_client": 4,
+      "delivery": {
+        "driver_position": "33.123456, -78.987654",
+        "date_preview_delivery": "2024-10-23",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-10-30",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 95.00,
+        "status": "unpaid",
+        "pix_copyPaste": "klm789nop",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Washington St",
+        "number": "741",
+        "complement": "",
+        "neighborhood": "Capitol Hill",
+        "city": "Washington",
+        "state": "DC",
+        "typeAddress": "commercial"
+      },
+      "address_collect": {
+        "street": "Lincoln Ave",
+        "number": "963",
+        "complement": "",
+        "neighborhood": "Central",
+        "city": "Washington",
+        "state": "DC",
+        "typeAddress": "residential"
+      },
+      "items": [
+        {
+          "name": "Printer",
+          "quantity": 3,
+          "observation": "Heavy",
+          "weight": 12.0,
+          "height": 0.4,
+          "id_order": 104
+        }
+      ]
+    },
+    {
+      "status": "completed",
+      "id_vehicle": 5,
+      "id_driver": 5,
+      "id_client": 5,
+      "delivery": {
+        "driver_position": "37.654321, -82.123456",
+        "date_preview_delivery": "2024-10-10",
+        "date_effected_delivery": "2024-10-10",
+        "date_preview_colect": "2024-10-17",
+        "date_effected_colect": "2024-10-17"
+      },
+      "payment": {
+        "value": 300.00,
+        "status": "paid",
+        "pix_copyPaste": "rst012uvw",
+        "date_payment": "2024-10-09"
+      },
+      "address_delivery": {
+        "street": "Sunset Blvd",
+        "number": "951",
+        "complement": "Penthouse",
+        "neighborhood": "Hollywood",
+        "city": "Los Angeles",
+        "state": "CA",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Vine St",
+        "number": "753",
+        "complement": "",
+        "neighborhood": "Hollywood",
+        "city": "Los Angeles",
+        "state": "CA",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Sound System",
+          "quantity": 2,
+          "observation": "Requires careful handling",
+          "weight": 15.0,
+          "height": 1.0,
+          "id_order": 105
+        }
+      ]
+    },
+    {
+      "status": "cancelled",
+      "id_vehicle": 6,
+      "id_driver": 6,
+      "id_client": 6,
+      "delivery": {
+        "driver_position": "38.765432, -83.234567",
+        "date_preview_delivery": "2024-10-18",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-10-25",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 125.50,
+        "status": "cancelled",
+        "pix_copyPaste": "",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Ocean Dr",
+        "number": "147",
+        "complement": "",
+        "neighborhood": "Seaside",
+        "city": "Miami",
+        "state": "FL",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Beach Ave",
+        "number": "258",
+        "complement": "Unit 2",
+        "neighborhood": "North Shore",
+        "city": "Miami",
+        "state": "FL",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Bicycle",
+          "quantity": 1,
+          "observation": "",
+          "weight": 5.0,
+          "height": 1.2,
+          "id_order": 106
+        }
+      ]
+    },
+    {
+      "status": "returned",
+      "id_vehicle": 7,
+      "id_driver": 7,
+      "id_client": 7,
+      "delivery": {
+        "driver_position": "39.876543, -84.345678",
+        "date_preview_delivery": "2024-10-14",
+        "date_effected_delivery": "2024-10-14",
+        "date_preview_colect": "2024-10-21",
+        "date_effected_colect": "2024-10-21"
+      },
+      "payment": {
+        "value": 80.00,
+        "status": "paid",
+        "pix_copyPaste": "yza345bcd",
+        "date_payment": "2024-10-13"
+      },
+      "address_delivery": {
+        "street": "King St",
+        "number": "123",
+        "complement": "",
+        "neighborhood": "Queens",
+        "city": "New York",
+        "state": "NY",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Park Ave",
+        "number": "456",
+        "complement": "Suite 10",
+        "neighborhood": "Manhattan",
+        "city": "New York",
+        "state": "NY",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Fridge",
+          "quantity": 1,
+          "observation": "Heavy item",
+          "weight": 70.0,
+          "height": 1.8,
+          "id_order": 107
+        }
+      ]
+    },
+    {
+      "status": "pending",
+      "id_vehicle": 8,
+      "id_driver": 8,
+      "id_client": 8,
+      "delivery": {
+        "driver_position": "40.987654, -85.456789",
+        "date_preview_delivery": "2024-10-30",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-11-05",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 45.75,
+        "status": "unpaid",
+        "pix_copyPaste": "cde678fgh",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Cedar St",
+        "number": "963",
+        "complement": "",
+        "neighborhood": "North Hill",
+        "city": "Seattle",
+        "state": "WA",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Pine St",
+        "number": "789",
+        "complement": "",
+        "neighborhood": "Southside",
+        "city": "Seattle",
+        "state": "WA",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Table",
+          "quantity": 1,
+          "observation": "",
+          "weight": 20.0,
+          "height": 1.0,
+          "id_order": 108
+        }
+      ]
+    },
+    {
+      "status": "completed",
+      "id_vehicle": 9,
+      "id_driver": 9,
+      "id_client": 9,
+      "delivery": {
+        "driver_position": "41.098765, -86.567890",
+        "date_preview_delivery": "2024-10-25",
+        "date_effected_delivery": "2024-10-25",
+        "date_preview_colect": "2024-11-01",
+        "date_effected_colect": "2024-11-01"
+      },
+      "payment": {
+        "value": 65.00,
+        "status": "paid",
+        "pix_copyPaste": "fgh789ijk",
+        "date_payment": "2024-10-24"
+      },
+      "address_delivery": {
+        "street": "Maple St",
+        "number": "111",
+        "complement": "",
+        "neighborhood": "Old Town",
+        "city": "Chicago",
+        "state": "IL",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Lincoln St",
+        "number": "222",
+        "complement": "",
+        "neighborhood": "South Loop",
+        "city": "Chicago",
+        "state": "IL",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Chair",
+          "quantity": 4,
+          "observation": "Stackable",
+          "weight": 8.0,
+          "height": 0.5,
+          "id_order": 109
+        }
+      ]
+    },
+    {
+      "status": "pending",
+      "id_vehicle": 10,
+      "id_driver": 10,
+      "id_client": 10,
+      "delivery": {
+        "driver_position": "42.210987, -87.678901",
+        "date_preview_delivery": "2024-10-28",
+        "date_effected_delivery": null,
+        "date_preview_colect": "2024-11-03",
+        "date_effected_colect": null
+      },
+      "payment": {
+        "value": 100.00,
+        "status": "unpaid",
+        "pix_copyPaste": "ijk012lmn",
+        "date_payment": null
+      },
+      "address_delivery": {
+        "street": "Birch St",
+        "number": "333",
+        "complement": "",
+        "neighborhood": "Westend",
+        "city": "Austin",
+        "state": "TX",
+        "typeAddress": "residential"
+      },
+      "address_collect": {
+        "street": "Larch St",
+        "number": "444",
+        "complement": "",
+        "neighborhood": "Eastside",
+        "city": "Austin",
+        "state": "TX",
+        "typeAddress": "commercial"
+      },
+      "items": [
+        {
+          "name": "Sofa",
+          "quantity": 1,
+          "observation": "Oversized",
+          "weight": 30.0,
+          "height": 1.0,
+          "id_order": 110
+        }
+      ]
+    }
+  ]
+  

@@ -23,8 +23,7 @@ class Vehicle(models.Model):
     type_vehicle = models.CharField(max_length=45)
     status = models.IntegerField(choices=StatusVehicle.choices,  default=StatusVehicle.STOPPED)
     tb_mark = models.ForeignKey(Mark, on_delete=models.PROTECT, null=True, blank=True)
-
-
+    
     def __str__(self):
         return self.plate
     
