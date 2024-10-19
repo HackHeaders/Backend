@@ -22,6 +22,7 @@ from core.carrier.views import (
     DeliveryViewSet,
     ItemOrderViewSet,
     AddressOrderViewSet,
+    webhook_receiver,
 )
 
 router = DefaultRouter()
@@ -52,5 +53,6 @@ urlpatterns = [
         "api/redoc/",
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
-    )
+    ),
+    path('api/webhook/', webhook_receiver, name='webhook_receiver'),
 ]
