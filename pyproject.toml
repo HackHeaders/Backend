@@ -17,6 +17,7 @@ dependencies = [
     "openapi-python-client>=0.21.4",
     "django-extensions>=3.2.3",
     "python-dotenv>=1.0.1",
+    "mercadopago>=2.2.3",
 ]
 requires-python = ">=3.12"
 readme = "README.md"
