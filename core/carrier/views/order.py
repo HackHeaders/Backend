@@ -1,7 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
-from core.carrier.models import Order, ItemOrder, Delivery, Payment, AddressOrder
+from core.carrier.models import Order, ItemOrder, Delivery, AddressOrder
 from rest_framework.response import Response
 from rest_framework import status
+from core.mercado_pago.payment import create_payment
 from django.db import transaction
 from core.carrier.serializers import (
     OrderListSerializer,
@@ -33,7 +34,6 @@ class OrderViewSet(ModelViewSet):
         )
 
         # Criando o pagamento
-        breakpoint()
 
         delivery_data = Delivery.objects.create(
             driver_position=serializer.validated_data["delivery"]["driver_position"],
@@ -44,12 +44,9 @@ class OrderViewSet(ModelViewSet):
         )
 
         # Criando o pagamento
-        payment_data = Payment.objects.create(
-            value=serializer.validated_data["payment"]["value"],
-            status=serializer.validated_data["payment"]["status"],
-            pix_copyPaste=serializer.validated_data["payment"]["pix_copyPaste"],
-            date_payment=serializer.validated_data["payment"]["date_payment"],
-        )
+        breakpoint()
+        create_payment(serializer.validated_data["payment"])
+        
 
         # Criando o pedido (Order)
         order_data = Order.objects.create(

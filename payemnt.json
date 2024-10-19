@@ -1,0 +1,192 @@
+payment {
+    "accounts_info": null,
+    "acquirer_reconciliation": [],
+    "additional_info": {
+        "authentication_code": null,
+        "available_balance": null,
+        "nsu_processadora": null
+    },
+    "authorization_code": null,
+    "binary_mode": false,
+    "brand_id": null,
+    "build_version": "3.74.0-rc-3",
+    "call_for_authorize_id": null,
+    "callback_url": null,
+    "captured": true,
+    "card": {},
+    "charges_details": [
+        {
+            "accounts": {
+                "from": "collector",
+                "to": "mp"
+            },
+            "amounts": {
+                "original": 0.01,
+                "refunded": 0
+            },
+            "client_id": 0,
+            "date_created": "2024-10-19T17:18:23.889-04:00",
+            "id": "91020975790-001",
+            "last_updated": "2024-10-19T17:18:23.889-04:00",
+            "metadata": {
+                "source": "rule-engine"
+            },
+            "name": "mercadopago_fee",
+            "refund_charges": [],
+            "reserve_id": null,
+            "type": "fee"
+        }
+    ],
+    "collector_id": 1138000306,
+    "corporation_id": null,
+    "counter_currency": null,
+    "coupon_amount": 0,
+    "currency_id": "BRL",
+    "date_approved": null,
+    "date_created": "2024-10-19T17:18:23.887-04:00",
+    "date_last_updated": "2024-10-19T17:18:23.887-04:00",
+    "date_of_expiration": "2024-10-20T17:18:23.659-04:00",
+    "deduction_schema": null,
+    "description": "teste",
+    "differential_pricing_id": null,
+    "external_reference": null,
+    "fee_details": [],
+    "financing_group": null,
+    "id": 91020975790,
+    "installments": 1,
+    "integrator_id": null,
+    "issuer_id": "12501",
+    "live_mode": true,
+    "marketplace_owner": null,
+    "merchant_account_id": null,
+    "merchant_number": null,
+    "metadata": {},
+    "money_release_date": null,
+    "money_release_schema": null,
+    "money_release_status": "released",
+    "notification_url": null,
+    "operation_type": "regular_payment",
+    "order": {},
+    "payer": {
+        "email": null,
+        "entity_type": null,
+        "first_name": null,
+        "id": "1807436309",
+        "identification": {
+            "number": null,
+            "type": null
+        },
+        "last_name": null,
+        "operator_id": null,
+        "phone": {
+            "area_code": null,
+            "extension": null,
+            "number": null
+        },
+        "type": null
+    },
+    "payment_method": {
+        "id": "pix",
+        "issuer_id": "12501",
+        "type": "bank_transfer"
+    },
+    "payment_method_id": "pix",
+    "payment_type_id": "bank_transfer",
+    "platform_id": null,
+    "point_of_interaction": {
+        "application_data": {
+            "name": null,
+            "version": null
+        },
+        "business_info": {
+            "branch": null,
+            "sub_unit": "sdk",
+            "unit": "online_payments"
+        },
+        "location": {
+            "source": null,
+            "state_id": null
+        },
+        "transaction_data": {
+            "bank_info": {
+                "collector": {
+                    "account_holder_name": "Sunamita Teixeira Silva Peraza",
+                    "account_id": null,
+                    "long_name": null,
+                    "transfer_account_id": null
+                },
+                "is_same_bank_account_owner": null,
+                "origin_bank_id": null,
+                "origin_wallet_id": null,
+                "payer": {
+                    "account_id": null,
+                    "external_account_id": null,
+                    "id": null,
+                    "identification": {},
+                    "long_name": null
+                }
+            },
+            "bank_transfer_id": null,
+            "e2e_id": null,
+            "financial_institution": null,
+            "qr_code": "00020126580014br.gov.bcb.pix013603fff190-7f9f-43ee-bb38-083eb807869a52040000530398654041.005802BR5925PERAZASUNAMITA202206062026009Sao Paulo62240520mpqrinter9102097579063045AD2",
+            "qr_code_base64": "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",
+            "ticket_url": "https://www.mercadopago.com.br/payments/91020975790/ticket?caller_id=1807436309&hash=c6c92f05-1d91-4dad-8e33-67f69ad88d4b",
+            "transaction_id": null
+        },
+        "type": "OPENPLATFORM"
+    },
+    "pos_id": null,
+    "processing_mode": "aggregator",
+    "refunds": [],
+    "release_info": null,
+    "shipping_amount": 0,
+    "sponsor_id": null,
+    "statement_descriptor": null,
+    "status": "pending",
+    "status_detail": "pending_waiting_transfer",
+    "store_id": null,
+    "tags": null,
+    "taxes_amount": 0,
+    "transaction_amount": 1,
+    "transaction_amount_refunded": 0,
+    "store_id": null,
+    "tags": null,
+    "taxes_amount": 0,
+    "transaction_amount": 1,
+    "transaction_amount_refunded": 0,
+    "tags": null,
+    "taxes_amount": 0,
+    "transaction_amount": 1,
+    "transaction_amount_refunded": 0,
+    "taxes_amount": 0,
+    "transaction_amount": 1,
+    "transaction_amount_refunded": 0,
+    "transaction_details": {
+    "transaction_amount": 1,
+    "transaction_amount_refunded": 0,
+    "transaction_details": {
+    "transaction_amount_refunded": 0,
+    "transaction_details": {
+        "acquirer_reference": null,
+        "bank_transfer_id": null,
+    "transaction_details": {
+        "acquirer_reference": null,
+        "bank_transfer_id": null,
+        "external_resource_url": null,
+        "acquirer_reference": null,
+        "bank_transfer_id": null,
+        "external_resource_url": null,
+        "bank_transfer_id": null,
+        "external_resource_url": null,
+        "external_resource_url": null,
+        "financial_institution": null,
+        "installment_amount": 0,
+        "net_received_amount": 0,
+        "overpaid_amount": 0,
+        "payable_deferral_period": null,
+        "payment_method_reference_id": null,
+        "total_paid_amount": 1,
+        "transaction_id": null
+    }
+}

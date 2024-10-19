@@ -108,7 +108,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-
+MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN")
 SPECTACULAR_SETTINGS = {
     "TITLE": "FEX API",
     "DESCRIPTION": "API for manage FEX, including endpoints and documentation.",

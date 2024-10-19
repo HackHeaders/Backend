@@ -7,9 +7,18 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Payment
         fields = [
             "id",
-            "value",
             "status",
+            "transaction_amount",
+            "description",
+            "payment_method_id",
+            "payer_email",
+            "payer_identification_type",
+            "payer_identification_number",
             "pix_copyPaste",
             "date_generated",
-            "date_payment",
+            "date_update",
+            "date_expiration",
+            "ticket_url",
+
         ]
+        read_only_fields = ["id", "status", "pix_copyPaste", "date_generated", "date_update", "date_expiration", "ticket_url"]
