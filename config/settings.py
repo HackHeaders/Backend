@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "rest_framework",
     'core.authUser',
     'core.carrier',
+    'core.populate',
     "django_extensions",
     "corsheaders",
     "drf_spectacular",
