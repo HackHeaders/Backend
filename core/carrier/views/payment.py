@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from core.carrier.models import Payment
-from core.carrier.serializers import PaymentSerializer
+from core.carrier.serializers import PaymentSerializer, CardSerializer
 from core.mercado_pago.payment import create_payment
 from django.http import JsonResponse
 
@@ -35,12 +35,10 @@ class PaymentViewSet(ModelViewSet):
 
     # Sobrescrevendo o método de criação
     def create(self, request, *args, **kwargs):
-        # Lógica de criação de pagamento usando MercadoPago
-        payment_data = create_payment(request.data)
+        payment_data, status_code = create_payment(request.data)
         
-        if payment_data:
-            return Response({'status': 'success', 'payment': payment_data}, status=201)
-        return Response({'status': 'error', 'message': 'Payment creation failed'}, status=400)
+        # Retornar uma resposta conforme o status_code retornado
+        return Response(payment_data, status=status_code)
 
 
 # Webhook receiver para notificações externas

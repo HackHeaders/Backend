@@ -1,6 +1,9 @@
 from django.db import models
+from .card import Card
+#from core.authUser.models import User
 
 class Payment(models.Model):
+#   user = models.ForeignKey(User, on_delete=models.PROTECT)
     payment_id = models.CharField(max_length=50, null=False, blank=False)
     transaction_amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
     description = models.CharField(max_length=50, null=False, blank=True)
@@ -14,6 +17,8 @@ class Payment(models.Model):
     date_update = models.DateTimeField(null=True, blank=False)
     date_expiration = models.DateTimeField(null=True, blank=True)
     ticket_url = models.URLField(max_length=200, null=True, blank=True)
+    card = models.ForeignKey(Card, on_delete=models.PROTECT, null=True, blank=True)
+    installments = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.status
