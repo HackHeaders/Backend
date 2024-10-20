@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import (
@@ -22,6 +23,7 @@ from core.carrier.views import (
     DeliveryViewSet,
     ItemOrderViewSet,
     AddressOrderViewSet,
+    CardViewSet,
     webhook_receiver,
 )
 
@@ -35,6 +37,7 @@ router.register(r"employe", EmployeViewSet)
 router.register(r"mark", MarkViewSet)
 router.register(r"vehicle", VehicleViewSet)
 router.register(r"payment", PaymentViewSet)
+router.register(r"card", CardViewSet)
 router.register(r"delivery", DeliveryViewSet)
 router.register(r"order", OrderViewSet)
 router.register(r"item-order", ItemOrderViewSet)
@@ -55,4 +58,5 @@ urlpatterns = [
         name="redoc",
     ),
     path('api/webhook/', webhook_receiver, name='webhook_receiver'),
+    path('', lambda request: redirect('api/', permanent=True)),
 ]
