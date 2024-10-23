@@ -19,3 +19,7 @@ class Card(models.Model):
 
     def __str__(self):
         return self.number
+    
+    class Meta:
+        verbose_name = 'Card'
+        verbose_name_plural = 'Cards'

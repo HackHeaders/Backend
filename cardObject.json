@@ -1,0 +1,58 @@
+//frontend teste https://github.com/jonatasperaza/vueVisaCard
+
+{
+  "token": "a14f7e0f640d41e2250ecd7b2c7086e5", // token gerado pelo front-end
+  "issuer_id": "24", // issuer_id gerado pelo front-end
+  "description": "teste",
+  "payment_method_id": "master", // payment_method_id gerado pelo front-end
+  "transaction_amount": 1,
+  "installments": 1,
+  "payer": {
+    "email": "seuemail@example.com",
+    "identification": {
+      "type": "CPF",
+      "number": "12345678909"
+    }
+  }
+}
+
+{
+    "numero cartão": 5031 4332 1540 6351,
+    "codigo segurança": 123,
+    "data validade": "11/25",
+    "nome titular": [
+        {
+            "nome": "APRO",
+            "retorne": "Pagamento aprovado"
+        },
+        {
+            "nome": "OTHE",
+            "retorne": "Recusado por erro geral"
+        },
+        {
+            "nome": "CONT",
+            "retorne": "Pagamento pendente"
+        },
+        {
+            "nome": "CALL",
+            "retorne": "Recusado com validação para autorizar"
+        },
+        {
+            "nome": "FUND",
+            "retorne": "Recusado por quantia insuficiente"
+        },
+        {
+            "nome": "SECU",
+            "retorne": "Recusado por código de segurança inválido"
+        },
+        {
+            "nome": "EXPI",
+            "retorne": "Recusado por data de validade inválida"
+        },
+        {
+            "nome": "FORM",
+            "retorne": "Recusado por erro no formulário"
+        }
+    ],
+
+}

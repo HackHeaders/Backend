@@ -6,7 +6,7 @@ class Payment(models.Model):
 #   user = models.ForeignKey(User, on_delete=models.PROTECT)
     payment_id = models.CharField(max_length=50, null=False, blank=False)
     transaction_amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
-    description = models.CharField(max_length=50, null=False, blank=True)
+    description = models.CharField(max_length=50, null=True, blank=True)
     status = models.CharField(max_length=50, null=True, blank=True)
     payment_method_id = models.CharField(max_length=50, null=False, blank=False)
     payer_email = models.EmailField(max_length=50, null=False, blank=False)
