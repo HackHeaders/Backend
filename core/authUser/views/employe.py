@@ -38,17 +38,6 @@ class EmployeViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        def create_passage_user(email, user_metadata=None):
-            try:
-                psg_user = psg.createUser(
-                    {"email": email, user_metadata: user_metadata}
-                )
-                return psg_user
-            except PassageError as e:
-                raise AuthenticationFailed(detail=str(e))
-
-        create_passage_user(serializer.validated_data["email"])
-
         address_data = serializer.validated_data.pop("address")
         office = serializer.validated_data.pop("office")
 
@@ -58,6 +47,14 @@ class EmployeViewSet(ModelViewSet):
             name=serializer.validated_data["name"],
             telephone=serializer.validated_data["telephone"],
         )
+
+        # Chama a função para criar o usuário no Passage
+        try:
+            create_passage_user(
+                user.email, {"name": user.name, "username": user.username}
+            )
+        except AuthenticationFailed as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         employe_data = {
             "cpf": serializer.validated_data["cpf"],

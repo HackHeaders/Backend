@@ -18,6 +18,7 @@ dependencies = [
     "django-extensions>=3.2.3",
     "python-dotenv>=1.0.1",
     "mercadopago>=2.2.3",
+    "faker>=30.8.2",
 ]
 requires-python = ">=3.12"
 readme = "README.md"

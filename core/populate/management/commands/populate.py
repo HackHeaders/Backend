@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from ._vehicles import populate_marks, populate_vehicles
+from ._employee import populate_employees
+
 
 class Command(BaseCommand):
     help = "Populates the Database"
@@ -16,6 +18,11 @@ class Command(BaseCommand):
             help="Populates vehicle data in the database",
         )
         parser.add_argument(
+            "--employee",
+            action="store_true",
+            help="Populates employee data in the database",
+        )
+        parser.add_argument(
             "--all",
             action="store_true",
             help="Populates all data in the database",
@@ -29,9 +36,14 @@ class Command(BaseCommand):
             if options.get("vehicle"):
                 self.__handle_vehicles()
 
+            if options.get("office"):
+                self.__handle_offices()
+
+            if options.get("employee"):
+                self.__handle_employees()
+
             if options.get("all"):
                 self.__handle_all()
-
 
             self.stdout.write(self.style.SUCCESS("Data Inserted Successfully"))
 
@@ -51,9 +63,15 @@ class Command(BaseCommand):
         populate_vehicles()
         self.stdout.write(self.style.SUCCESS("OK"))
 
+    def __handle_employees(self):
+        self.stdout.write("Populating Employees...", ending=" ")
+        populate_employees()
+        self.stdout.write(self.style.SUCCESS("OK"))
+
     def __handle_all(self):
         self.stdout.write("Populating Marks and Vehicles...", ending=" ")
         self.__handle_marks()
+        self.__handle_employees()
         self.__handle_vehicles()
-        
+
         self.stdout.write(self.style.SUCCESS("OK"))
