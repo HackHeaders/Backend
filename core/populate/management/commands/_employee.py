@@ -15,6 +15,21 @@ psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATE
 
 fake = Faker('pt_BR')
 
+def populate_offices():
+    office_names = [
+        ("Admin", True),   
+        ("Gerente", True),  
+        ("Desenvolvedor", False),
+        ("Analista de Sistemas", False),
+        ("Suporte Técnico", False)
+    ]
+    
+    for name, is_staff in office_names:
+        office, created = Offices.objects.get_or_create(name=name)
+        if created and is_staff:
+            office.is_staff = is_staff
+            office.save()
+
 def populate_employees(num_employees=5):
     def create_passage_user(email):
         try:
@@ -31,13 +46,16 @@ def populate_employees(num_employees=5):
             telephone=employee_data["telephone"],
         )
 
+        office, _ = Offices.objects.get_or_create(id=employee_data["office"])
+        if office.name in ["Admin", "Gerente"]:
+            user.is_staff = True
+            user.save()
+
         employe = Employe.objects.create(
             user=user,
             cpf=employee_data["cpf"],
             date_birth=employee_data["date_birth"],
         )
-
-        office, _ = Offices.objects.get_or_create(id=employee_data["office"])
 
         DataEmploye.objects.create(
             employe=employe,
@@ -51,6 +69,8 @@ def populate_employees(num_employees=5):
             Address.objects.create(user=user, **address_data)
 
         print(f"Funcionário {employee_data['username']} criado com sucesso!")
+
+    populate_offices()
 
     for _ in range(num_employees):
         email = fake.email()
