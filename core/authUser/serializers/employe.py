@@ -29,6 +29,7 @@ class EmployeSerializer(ModelSerializer):
     class Meta:
         model = Employe
         fields = ['id', 'cpf', 'date_birth', 'user']
+        depth = 1
 
 class EmployeCreateSerializer(Serializer):
     cpf = CharField(max_length=11)
