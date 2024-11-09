@@ -13,8 +13,9 @@ def create_payment(data):
         return {"status": "error", "message": "Invalid data"}, 400
     
     try:
-        transaction_amount = float(data.get('transaction_amount', 0))
-        if transaction_amount <= 0:
+        transaction_amount = data.get('transaction_amount')
+        print(transaction_amount)
+        if float(transaction_amount) <= 0:
             return {"status": "error", "message": "Invalid transaction amount"}, 400
 
         payment_data = {
@@ -33,8 +34,8 @@ def create_payment(data):
         if not payment_data['payment_method_id'] or not payment_data['payer']['email']:
             print(payment_data)
             return {"status": "error", "message": "Missing essential payment data"}, 400
-
-        if data.get('payment_type_id') != 'pix':
+        print(data)
+        if data.get('payment_method_id') != 'pix':
             if not all([data.get('installments'), data.get('token'), data.get('issuer_id')]):
                 return {"status": "error", "message": "Missing credit card data"}, 400
             payment_data["installments"] = data.get('installments')
@@ -136,14 +137,14 @@ def update_payment(payment_id):
 
 def verify_data(data):
     required_fields = [
-        'transaction_amount', 'description', 'payment_method_id', 
-        'payer_email', 'payer_identification_type', 'payer_identification_number'
+        'transaction_amount', 'description', 'payment_method_id'
     ]
-    
+    print(data)
     if data.get('payment_method_id') == 'credit_card' or data.get('payment_method_id') == 'pix':
         missing_fields = [field for field in required_fields if not data.get(field)]
         
         if missing_fields:
+            print(missing_fields)
             return False
     
     return True

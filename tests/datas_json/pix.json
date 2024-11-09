@@ -1,0 +1,12 @@
+"payment_data": {
+    "transaction_amount": 2,
+    "payment_method_id": "pix",
+    "description": "on"
+    "payer":{
+        "email": "jonatassilvaperaza@gmail.com",
+        "identification": {
+            "type": "CPF",
+            "number": "13754587951"
+        }
+    }
+}
