@@ -10,6 +10,13 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
 
+CELERY_BROKER_URL = 'amqp://localhost'  
+CELERY_BROKER_URL = f'amqp://{os.getenv("RABBITMQ_USER")}:{os.getenv("RABBITMQ_PASSWORD")}@{os.getenv("RABBITMQ_HOST")}:{os.getenv("RABBITMQ_PORT")}//'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'rpc://'  
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,6 +31,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "corsheaders",
     "drf_spectacular",
+    'django_celery_results',
 ]
 
 AUTH_USER_MODEL = "authUser.User"
@@ -44,7 +52,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'core/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

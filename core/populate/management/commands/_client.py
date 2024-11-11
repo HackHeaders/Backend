@@ -2,27 +2,14 @@ import os
 import django
 from django.conf import settings
 from faker import Faker
-from passageidentity import Passage, PassageError
 from core.authUser.models import User, Address, Client, ClientPhysicalPerson, ClientLegalPerson
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
-PASSAGE_APP_ID = settings.PASSAGE_APP_ID
-PASSAGE_API_KEY = settings.PASSAGE_API_KEY
-PASSAGE_AUTH_STRATEGY = settings.PASSAGE_AUTH_STRATEGY
-psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATEGY)
-
 fake = Faker('pt_BR')
 
 def populate_clients(num_clients=10):
-    def create_passage_user(email):
-        try:
-            psg_user = psg.createUser({"email": email})
-            return psg_user
-        except PassageError as e:
-            print(f"Erro ao criar usuário no Passage para o email {email}: {str(e)}")
-            return None
 
     def create_client(client_data):
         user = User.objects.create_user(
@@ -86,9 +73,6 @@ def populate_clients(num_clients=10):
                 "company_name": fake.company(),
             })
 
-        # Criar usuário no Passage
-        passage_user = create_passage_user(email)
-        if passage_user:
             create_client(client_data)
 
 if __name__ == "__main__":

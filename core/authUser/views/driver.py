@@ -5,19 +5,14 @@ from django.db import transaction
 from django.conf import settings
 from passageidentity import Passage, PassageError
 from rest_framework.exceptions import AuthenticationFailed
-from core.send_mail.mail import send_welcome_email
-from core.authUser.serializers import (
-    DriverCreateSerializer,
-    DriverSerializer,
-)
-
+from core.send_mail.tasks import send_welcome_email
+from core.authUser.serializers import DriverCreateSerializer, DriverSerializer
 from core.authUser.models import Driver, User, Address
 
 PASSAGE_APP_ID = settings.PASSAGE_APP_ID
 PASSAGE_API_KEY = settings.PASSAGE_API_KEY
 PASSAGE_AUTH_STRATEGY = settings.PASSAGE_AUTH_STRATEGY
 psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATEGY)
-
 
 class DriverViewSet(ModelViewSet):
     queryset = Driver.objects.all()
@@ -35,7 +30,7 @@ class DriverViewSet(ModelViewSet):
         def create_passage_user(email, user_metadata=None):
             try:
                 psg_user = psg.createUser(
-                    {"email": email, user_metadata: user_metadata}
+                    {"email": email, "user_metadata": user_metadata}
                 )
                 return psg_user
             except PassageError as e:
@@ -67,10 +62,20 @@ class DriverViewSet(ModelViewSet):
 
         subject = "Bem-vindo(a) a Fex!"
         message = f"Olá {user.name}, foi realizado o seu cadastro como motorista da Fex.\nMuito obrigado por fazer parte da nossa equipe!\nDados do seu cadastro:\nCNH: {driver_create.cnh}\nTipo da CNH: {driver_create.type_cnh}\nCPF: {driver_create.cpf}\nAtenciosamente,\nFex"
+        context = {
+            'name': user.name,
+            'cpf_cnpj': driver_create.cpf,
+            'username': user.username,
+            'email': user.email,
+            'telephone': user.telephone,
+            'cnh': driver_create.cnh,
+            'type_cnh': driver_create.type_cnh,
+            'user_type': 'driver'
+        }
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [user.email]
 
-        send_welcome_email(subject, message, from_email, recipient_list)
+        send_welcome_email.delay(subject, message, from_email, recipient_list, context, user_type="driver")
 
         output_serializer = DriverSerializer(driver_create)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)

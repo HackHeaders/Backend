@@ -5,7 +5,7 @@ from django.db import transaction
 from django.conf import settings
 from passageidentity import Passage, PassageError
 from rest_framework.exceptions import AuthenticationFailed
-from core.send_mail.mail import send_welcome_email
+from core.send_mail.tasks import send_welcome_email
 
 from core.authUser.models import Offices, Employe, User, DataEmploye, Address
 from core.authUser.serializers import (
@@ -48,13 +48,16 @@ class EmployeViewSet(ModelViewSet):
             telephone=serializer.validated_data["telephone"],
         )
 
-        # Chama a função para criar o usuário no Passage
-        try:
-            create_passage_user(
-                user.email, {"name": user.name, "username": user.username}
-            )
-        except AuthenticationFailed as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        def create_passage_user(email, user_metadata=None):
+            try:
+                psg_user = psg.createUser(
+                    {"email": email, "user_metadata": user_metadata}
+                )
+                return psg_user
+            except PassageError as e:
+                raise AuthenticationFailed(detail=str(e))
+
+        create_passage_user(serializer.validated_data["email"])
 
         employe_data = {
             "cpf": serializer.validated_data["cpf"],
@@ -70,16 +73,34 @@ class EmployeViewSet(ModelViewSet):
         }
 
         DataEmploye.objects.create(**dataEmploye)
+        
         if address_data:
             address_data.pop("user", None)
             Address.objects.create(user=user, **address_data)
 
         subject = "Bem-vindo(a) a Fex!"
-        message = f"Olá {user.name}, foi realizado o seu cadastro como motorista da Fex.\nMuito obrigado por fazer parte da nossa equipe!\nDados do seu cadastro:\nCPF: {employe_data['cpf']}\nCargo: {dataEmploye['office']}\nData de Admissão: {dataEmploye['date_admission']}\n Atenciosamente,\nFex"
+        message = f"Olá {user.name}, foi realizado o seu cadastro como Funcionario(a) da Fex.\nMuito obrigado por fazer parte da nossa equipe!\nDados do seu cadastro:\nCPF: {employe_data['cpf']}\nCargo: {dataEmploye['office']}\nData de Admissão: {dataEmploye['date_admission']}\n Atenciosamente,\nFex"
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [user.email]
 
-        send_welcome_email(subject, message, from_email, recipient_list)
+        office_data = {
+            'id': office.id,  
+            'name': office.name  
+        }
+
+        send_welcome_email.delay(
+            subject, message, from_email, recipient_list, 
+            context={
+                'name': user.name,
+                'cpf': employe_data["cpf"],
+                'office': office_data['name'],  
+                'date_admission': dataEmploye["date_admission"],
+                'telephone': user.telephone,
+                'username': user.username,
+                'email': user.email,
+            }, 
+            user_type="employee"
+        )
 
         output_serializer = EmployeSerializer(employe)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)

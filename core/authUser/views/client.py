@@ -1,18 +1,12 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from rest_framework.response import Response
-from django.conf import settings
-from core.authUser.models import (
-    Client,
-    Address,
-    User,
-    ClientLegalPerson,
-    ClientPhysicalPerson,
-)
+from core.send_mail.tasks import send_welcome_email
+from core.authUser.models import Client, Address, User, ClientLegalPerson, ClientPhysicalPerson
 from core.authUser.serializers import ClientCreateSerializer, ClientSerializer
-from core.send_mail.mail import send_welcome_email
 from passageidentity import Passage, PassageError
 from rest_framework.exceptions import AuthenticationFailed
+from django.conf import settings
 
 PASSAGE_APP_ID = settings.PASSAGE_APP_ID
 PASSAGE_API_KEY = settings.PASSAGE_API_KEY
@@ -68,12 +62,23 @@ class ClientViewSet(ModelViewSet):
         address_data.pop("user", None)
         Address.objects.create(user=user, **address_data)
 
-        subject = "Bem-vindo(a) a Fex!"
-        message = f"Olá {user.name}, seja bem-vindo(a) a Fex!\n Aproveite nossos serviços!\n Dados do Seu Cadastro:\n Atenciosamente,\nFex."
+        subject = "Bem-vindo(a) à Fex!"
+
+        context = {
+            'name': user.name,
+            'cpf_cnpj': serializer.data["cpf_cnpj"],
+            'username': serializer.data["username"],
+            'email': serializer.data["email"],
+            'telephone': serializer.data["telephone"],
+            'user_type': 'client', 
+        }
+
+        message = f"Olá {user.name},\nSeja bem-vindo(a) à Fex!\nAproveite nossos serviços!\n\nDados do Seu Cadastro:\n- Nome: {user.name}\n- CPF/CNPJ: {serializer.data['cpf_cnpj']}\n- Telefone: {serializer.data['telephone']}\n\nAtenciosamente,\nEquipe Fex"
+
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [user.email]
 
-        send_welcome_email(subject, message, from_email, recipient_list)
+        send_welcome_email.delay(subject, message, from_email, recipient_list, context, user_type="client")
 
         output_serializer = ClientSerializer(client)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)

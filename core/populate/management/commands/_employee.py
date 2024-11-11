@@ -8,11 +8,6 @@ from core.authUser.models import Employe, User, DataEmploye, Address, Offices
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
-PASSAGE_APP_ID = settings.PASSAGE_APP_ID
-PASSAGE_API_KEY = settings.PASSAGE_API_KEY
-PASSAGE_AUTH_STRATEGY = settings.PASSAGE_AUTH_STRATEGY
-psg = Passage(PASSAGE_APP_ID, PASSAGE_API_KEY, auth_strategy=PASSAGE_AUTH_STRATEGY)
-
 fake = Faker('pt_BR')
 
 def populate_offices():
@@ -31,13 +26,6 @@ def populate_offices():
             office.save()
 
 def populate_employees(num_employees=5):
-    def create_passage_user(email):
-        try:
-            psg_user = psg.createUser({"email": email})
-            return psg_user
-        except PassageError as e:
-            print(f"Erro ao criar usuário no Passage para o email {email}: {str(e)}")
-            return None
 
     def create_employe(employee_data):
         user = User.objects.create_user(
@@ -94,9 +82,7 @@ def populate_employees(num_employees=5):
             }
         }
 
-        passage_user = create_passage_user(email)
-        if passage_user:
-            create_employe(employee_data)
+        create_employe(employee_data)
 
 if __name__ == "__main__":
     print("Iniciando o script de população de dados...")
