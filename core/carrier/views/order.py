@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from core.carrier.models import Order, ItemOrder, Delivery, AddressOrder
+from core.carrier.models import Order, ItemOrder, Delivery, AddressOrder, Payment
 from rest_framework.response import Response
 from rest_framework import status
 from core.mercado_pago.payment import create_payment
@@ -24,7 +24,14 @@ class OrderViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # Criando a entrega
+        delivery_data = Delivery.objects.create(
+            driver_position=serializer.validated_data["delivery"]["driver_position"],
+            date_preview_delivery=serializer.validated_data["delivery"]["date_preview_delivery"],
+            date_effected_delivery=serializer.validated_data["delivery"]["date_effected_delivery"],
+            date_preview_colect=serializer.validated_data["delivery"]["date_preview_colect"],
+            date_effected_colect=serializer.validated_data["delivery"]["date_effected_colect"],
+        )
+ 
         delivery_data = Delivery.objects.create(
             driver_position=serializer.validated_data["delivery"]["driver_position"],
             date_preview_delivery=serializer.validated_data["delivery"]["date_preview_delivery"],
@@ -33,32 +40,37 @@ class OrderViewSet(ModelViewSet):
             date_effected_colect=serializer.validated_data["delivery"]["date_effected_colect"],
         )
 
-        # Criando o pagamento
+        payment_data1 = create_payment(serializer.validated_data["payment"])
 
-        delivery_data = Delivery.objects.create(
-            driver_position=serializer.validated_data["delivery"]["driver_position"],
-            date_preview_delivery=serializer.validated_data["delivery"]["date_preview_delivery"],
-            date_effected_delivery=serializer.validated_data["delivery"]["date_effected_delivery"],
-            date_preview_colect=serializer.validated_data["delivery"]["date_preview_colect"],
-            date_effected_colect=serializer.validated_data["delivery"]["date_effected_colect"],
-        )
+        create_payment_data = {
+        "payment_id": payment_data1[0]["payment_response"]["response"]["id"],
+        "status": payment_data1[0]["payment_response"]["response"]["status"],
+        "transaction_amount": payment_data1[0]["payment_response"]["response"]["transaction_amount"],
+        "description": payment_data1[0]["payment_response"]["response"]["description"],
+        "payment_method_id": "pix",
+        "payer_email": serializer.validated_data["payment"]["payer_email"],
+        "payer_identification_type": serializer.validated_data["payment"]["payer_identification_type"],
+        "payer_identification_number": serializer.validated_data["payment"]["payer_identification_number"],
+        "pix_copyPaste": payment_data1[0]["payment_response"]["response"]["point_of_interaction"]["transaction_data"]["qr_code"],
+        "date_generated": payment_data1[0]["payment_response"]["response"]["date_created"],
+        "date_update": payment_data1[0]["payment_response"]["response"]["date_last_updated"],
+        "date_expiration": payment_data1[0]["payment_response"]["response"]["date_of_expiration"],
+        "ticket_url": payment_data1[0]["payment_response"]["response"]["point_of_interaction"]["transaction_data"]["ticket_url"],
+        "card": None,
+        "installments": None
+    }   
 
-        # Criando o pagamento
-        breakpoint()
-        create_payment(serializer.validated_data["payment"])
-        
+        output_payment = Payment.objects.create(**create_payment_data)
 
-        # Criando o pedido (Order)
         order_data = Order.objects.create(
             status=serializer.validated_data["status"],
             id_vehicle=serializer.validated_data["id_vehicle"],
             id_driver=serializer.validated_data["id_driver"],
             id_client=serializer.validated_data["id_client"],
             id_delivery=delivery_data,
-            id_payment=payment_data,
+            id_payment=output_payment,
         )
 
-        # Criando o endereço de entrega
         address_delivery_data = AddressOrder.objects.create(
             street=serializer.validated_data["address_delivery"]["street"],
             number=serializer.validated_data["address_delivery"]["number"],
@@ -69,7 +81,6 @@ class OrderViewSet(ModelViewSet):
             id_order=order_data,
         )
 
-        # Criando o endereço de coleta
         address_collect_data = AddressOrder.objects.create(
             street=serializer.validated_data["address_collect"]["street"],
             number=serializer.validated_data["address_collect"]["number"],
@@ -80,7 +91,6 @@ class OrderViewSet(ModelViewSet):
             id_order=order_data,
         )
 
-        # Criando os itens do pedido
         for item_data in serializer.validated_data["items"]:
             ItemOrder.objects.create(
                 name=item_data["name"],
@@ -88,10 +98,9 @@ class OrderViewSet(ModelViewSet):
                 observation=item_data["observation"],
                 weight=item_data["weight"],
                 height=item_data["height"],
-                id_order=order_data,  # Ligando ao pedido
+                id_order=order_data,  
             )
 
-        # Retornando a ordem criada com o serializer de listagem
         output_serializer = OrderListSerializer(order_data)
         return Response(output_serializer.data, status=status.HTTP_201_CREATED)
 

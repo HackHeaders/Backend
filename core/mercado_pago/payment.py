@@ -9,9 +9,6 @@ sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
 # @atomic.transaction
 def create_payment(data):
-    if not verify_data(data):
-        return {"status": "error", "message": "Invalid data"}, 400
-    
     try:
         transaction_amount = data.get('transaction_amount')
         print(transaction_amount)
@@ -19,21 +16,21 @@ def create_payment(data):
             return {"status": "error", "message": "Invalid transaction amount"}, 400
 
         payment_data = {
-            "transaction_amount": transaction_amount,
+            "transaction_amount": int(transaction_amount),
             "payment_method_id": data.get('payment_method_id'),
             "payer": {
-                "email": data['payer']['email'],
+                "email": data.get("payer_email"),
                 "identification": {
-                    "type": data['payer']['identification']['type'],
-                    "number": data['payer']['identification']['number']
+                    "type": data.get("payer_identification_type"),
+                    "number": data.get("payer_identification_number")
                 }
             }
         }
 
-        # Verificar se campos essenciais estão presentes
         if not payment_data['payment_method_id'] or not payment_data['payer']['email']:
             print(payment_data)
             return {"status": "error", "message": "Missing essential payment data"}, 400
+
         print(data)
         if data.get('payment_method_id') != 'pix':
             if not all([data.get('installments'), data.get('token'), data.get('issuer_id')]):
@@ -46,49 +43,19 @@ def create_payment(data):
             payment_data["description"] = data.get('description')
 
         print(f"Payment data: {payment_data}")
-        
-        # Realizar o pagamento via SDK
+
         payment_response = sdk.payment().create(payment_data)
 
-        # Verificar se a resposta foi recebida corretamente
         if payment_response is None or payment_response == "":
             return {"status": "error", "message": "No response from payment API"}, 500
 
         print(f"Payment response: {payment_response}")
 
-        # Obter a resposta do pagamento
         payment = payment_response.get("response", {})
         if payment_response.get('status') == 201:
             pix_data = payment.get('point_of_interaction', {}).get('transaction_data', {})
 
-            # Salvar pagamento no banco de dados
-            Payment.objects.create(
-                payment_id=payment['id'],
-                transaction_amount=transaction_amount,
-                description=data.get('description'),
-                status=payment.get('status'),
-                payment_method_id=data.get('payment_method_id'),
-                payer_email=data['payer']['email'],
-                payer_identification_type=data['payer']['identification']['type'],
-                payer_identification_number=data['payer']['identification']['number'],
-                pix_copyPaste=pix_data.get('qr_code'),
-                date_generated=payment.get('date_created'),
-                date_update=payment.get('date_last_updated'),
-                date_expiration=payment.get('date_of_expiration'),
-                ticket_url=pix_data.get('ticket_url')
-            )
-
-            # Retornar dados serializáveis
-            return {
-                "status": "success",
-                "payment": {
-                    "id": payment['id'],
-                    "status": payment['status'],
-                    "date_created": payment.get('date_created'),
-                    "qr_code": pix_data.get('qr_code'),
-                    "ticket_url": pix_data.get('ticket_url')
-                }
-            }, 201
+            return {"payment_response": payment_response}, 201
         else:
             return {"status": "error", "message": "Payment creation failed", "details": payment}, 400
 
@@ -96,10 +63,6 @@ def create_payment(data):
         return {"status": "error", "message": f"Bad request error: {str(e)}"}, 400
     except Exception as e:
         return {"status": "error", "message": f"An unexpected error occurred: {str(e)}"}, 500
-
-
-
-    
 
 def get_payment(payment_id):
     payment_response = sdk.payment().get(payment_id)
@@ -144,7 +107,7 @@ def verify_data(data):
         missing_fields = [field for field in required_fields if not data.get(field)]
         
         if missing_fields:
-            print(missing_fields)
+            print(missing_fields, "Eu quero goza")
             return False
     
     return True
