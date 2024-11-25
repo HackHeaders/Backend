@@ -14,6 +14,6 @@ echo "Running migrations..."
 pdm migrate
 
 echo "Populating the database..."
-pdm run populate --al
+pdm run populate --all
 
 echo "Database reset and populated successfully!"

@@ -4,4 +4,14 @@ from core.authUser.models import Address
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = '__all__'
+        fields = [
+            "id",
+            "cep",
+            "street",
+            "number",
+            "complement",
+            "neighborhood",
+            "city",
+            "state",
+            "user",
+        ]

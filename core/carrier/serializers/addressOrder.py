@@ -7,6 +7,7 @@ class AddressOrderSerializer(serializers.ModelSerializer):
         model = AddressOrder
         fields = (
             "id",
+            "cep",
             "street",
             "number",
             "complement",
@@ -14,5 +15,5 @@ class AddressOrderSerializer(serializers.ModelSerializer):
             "city",
             "state",
             "typeAddress",
-            # "order_id"
+            "id_order"
         )
