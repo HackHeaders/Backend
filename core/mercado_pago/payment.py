@@ -53,7 +53,20 @@ def create_payment(data):
 
         payment = payment_response.get("response", {})
         if payment_response.get('status') == 201:
-            pix_data = payment.get('point_of_interaction', {}).get('transaction_data', {})
+            Payment.objects.create(
+                payment_id=payment.get('id'),
+                transaction_amount=payment_data.get('transaction_amount'),
+                description=payment_data.get('description'),
+                status=payment.get('status'),
+                payment_method_id=payment_data.get('payment_method_id'),
+                payer_email=payment_data.get('payer', {}).get('email'),
+                payer_identification_type=payment_data.get('payer', {}).get('identification', {}).get('type'),
+                payer_identification_number=payment_data.get('payer', {}).get('identification', {}).get('number'),
+                date_generated=payment.get('date_created'),
+                date_expiration=payment.get('date_of_expiration'),
+                pix_copyPaste=payment.get('point_of_interaction', {}).get('transaction_data', {}).get('qr_code'),
+                ticket_url=payment.get('point_of_interaction', {}).get('transaction_data', {}).get('ticket_url'),
+            )
 
             return {"payment_response": payment_response}, 201
         else:
@@ -68,9 +81,9 @@ def get_payment(payment_id):
     payment_response = sdk.payment().get(payment_id)
     payment = payment_response["response"]
     if payment_response['status'] == 200:
-        return Response(payment, status=status.HTTP_200_OK)
+        return (payment)
     else:
-        return Response(payment, status=status.HTTP_400_BAD_REQUEST)
+        return Response (payment, status=status.HTTP_400_BAD_REQUEST)
     
 def update_payment(payment_id):
     try:
@@ -111,4 +124,17 @@ def verify_data(data):
             return False
     
     return True
+
+def update_payment(payment_id):
+    print(payment_id)
+    try:
+        payment = get_payment(payment_id)
+        print(payment)
+        Payment.objects.filter(payment_id=payment_id).update(
+            status=payment.get('status'),
+            date_update=payment.get('date_last_updated')
+        )
+        
+    except mercadopago.exceptions.BadRequest:
+        return Response({"message": "Invalid request to payment provider"}, status=status.HTTP_400_BAD_REQUEST)
 

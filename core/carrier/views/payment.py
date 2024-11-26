@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from core.carrier.models import Payment
 from core.carrier.serializers import PaymentSerializer, CardSerializer
-from core.mercado_pago.payment import create_payment
+from core.mercado_pago.payment import create_payment, update_payment
 from django.http import JsonResponse
 
 class PaymentViewSet(ModelViewSet):
@@ -48,6 +48,10 @@ def webhook_receiver(request):
         try:
             data = json.loads(request.body)
             print(data)
+            if data.get("action") == "payment.updated":
+                id = data.get("data").get("id")
+                print(f"Payment {id}")
+                update_payment(id)
 
             return JsonResponse({'status': 'success'}, status=200)
         except json.JSONDecodeError:
