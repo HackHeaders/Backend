@@ -29,6 +29,7 @@ from core.carrier.views import (
 
 from core.carrier.utils import (
     AssignVehicleDriverView,
+    UpdateOrderStatusView
 )
 
 router = DefaultRouter()
@@ -64,4 +65,6 @@ urlpatterns = [
     path('api/webhook/', webhook_receiver, name='webhook_receiver'),
     path('', lambda request: redirect('api/', permanent=True)),
     path('orders/<int:order_id>/assign/<int:vehicle_id>/<int:driver_id>/', AssignVehicleDriverView.as_view(), name='assign-vehicle-driver'),
+    path('orders/<int:order_id>/status/<int:status_number>/', UpdateOrderStatusView.as_view(), name='update-order-status'),
+
 ]
