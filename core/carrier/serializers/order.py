@@ -116,26 +116,26 @@ class OrderListSerializer(serializers.ModelSerializer):
         return None
 
     def get_client(self, obj):
-        client = Client.objects.filter(id=obj.id_client.id).first()
-        if client:
-            return ClientSerializer(client).data
+        if obj.id_client:
+            return ClientSerializer(obj.id_client).data
         return None
 
     def get_driver(self, obj):
-        driver = Driver.objects.filter(id=obj.id_driver.id).first()
-        if driver:
-            return DriverSerializer(driver).data
+        # Verifica se o driver existe e retorna seus dados, ou None caso contrário
+        if obj.id_driver:
+            return DriverSerializer(obj.id_driver).data
         return None
 
     def get_vehicle(self, obj):
-        vehicle = Vehicle.objects.filter(id=obj.id_vehicle.id).first()
-        if vehicle:
-            return VehicleSerializer(vehicle).data
+        # Verifica se o veículo existe e retorna seus dados, ou None caso contrário
+        if obj.id_vehicle:
+            return VehicleSerializer(obj.id_vehicle).data
         return None
 
     def get_items(self, obj):
         items = ItemOrder.objects.filter(id_order=obj)
         return ItemOrderSerializer(items, many=True).data
+
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):

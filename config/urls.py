@@ -27,6 +27,10 @@ from core.carrier.views import (
     webhook_receiver,
 )
 
+from core.carrier.utils import (
+    AssignVehicleDriverView,
+)
+
 router = DefaultRouter()
 
 router.register(r"client", ClientViewSet)
@@ -59,4 +63,5 @@ urlpatterns = [
     ),
     path('api/webhook/', webhook_receiver, name='webhook_receiver'),
     path('', lambda request: redirect('api/', permanent=True)),
+    path('orders/<int:order_id>/assign/<int:vehicle_id>/<int:driver_id>/', AssignVehicleDriverView.as_view(), name='assign-vehicle-driver'),
 ]

@@ -64,8 +64,6 @@ class OrderViewSet(ModelViewSet):
 
         order_data = Order.objects.create(
             status=serializer.validated_data["status"],
-            id_vehicle=serializer.validated_data["id_vehicle"],
-            id_driver=serializer.validated_data["id_driver"],
             id_client=serializer.validated_data["id_client"],
             id_delivery=delivery_data,
             id_payment=output_payment,
