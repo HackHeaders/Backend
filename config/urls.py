@@ -29,7 +29,10 @@ from core.carrier.views import (
 
 from core.carrier.utils import (
     AssignVehicleDriverView,
-    UpdateOrderStatusView
+    UpdateOrderStatusView,
+    UpdateDriverPositionView,
+    CheckDriverOrdersView,
+    UnassignVehicleDriverView
 )
 
 router = DefaultRouter()
@@ -66,5 +69,7 @@ urlpatterns = [
     path('', lambda request: redirect('api/', permanent=True)),
     path('orders/<int:order_id>/assign/<int:vehicle_id>/<int:driver_id>/', AssignVehicleDriverView.as_view(), name='assign-vehicle-driver'),
     path('orders/<int:order_id>/status/<int:status_number>/', UpdateOrderStatusView.as_view(), name='update-order-status'),
-
+    path('orders/<int:order_id>/update-driver-position/', UpdateDriverPositionView.as_view(), name="update_driver_position"),
+    path("orders/check-driver/<int:driver_id>/", CheckDriverOrdersView.as_view(), name="check_driver_orders"),
+    path("order/<int:order_id>/unassign/", UnassignVehicleDriverView.as_view(), name="unassign_vehicle_driver"),
 ]

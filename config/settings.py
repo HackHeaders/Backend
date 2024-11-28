@@ -10,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
 
-CELERY_BROKER_URL = f'amqps://{os.getenv("RABBITMQ_USER")}:{os.getenv("RABBITMQ_PASSWORD")}@{os.getenv("RABBITMQ_HOST")}:{os.getenv("RABBITMQ_PORT")}/{os.getenv("RABBITMQ_USER")}'
+CELERY_BROKER_URL = f'amqp://{os.getenv("RABBITMQ_USER")}:{os.getenv("RABBITMQ_PASSWORD")}@{os.getenv("RABBITMQ_HOST")}:{os.getenv("RABBITMQ_PORT")}/{os.getenv("RABBITMQ_USER")}'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_BACKEND = 'rpc://'  
 CELERY_ACCEPT_CONTENT = ['json']
