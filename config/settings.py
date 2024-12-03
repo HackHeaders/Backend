@@ -10,9 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
 
-CELERY_BROKER_URL = f'amqp://{os.getenv("RABBITMQ_USER")}:{os.getenv("RABBITMQ_PASSWORD")}@{os.getenv("RABBITMQ_HOST")}:{os.getenv("RABBITMQ_PORT")}/{os.getenv("RABBITMQ_USER")}'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_RESULT_BACKEND = 'rpc://'  
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://localhost')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
@@ -148,3 +146,5 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API for manage FEX, including endpoints and documentation.",
     "VERSION": "1.0.0",
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
