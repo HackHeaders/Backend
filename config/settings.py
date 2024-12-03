@@ -1,5 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
+from decouple import config
 
 load_dotenv()
 import os
@@ -9,6 +11,8 @@ SECRET_KEY = 'django-insecure-e0h4%b!nv24feq&^vhedqmawyt@z$dgr%a0cyc1exj73pequ7j
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
+MODE = os.getenv("MODE", "DEVELOPMENT")
+tmpPostgres = os.getenv("DATABASE_URL")
 
 CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://localhost')
 CELERY_ACCEPT_CONTENT = ['json']
@@ -70,12 +74,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+if MODE in ["PRODUCTION", "MIGRATE"]:
+    DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
