@@ -13,7 +13,4 @@ python manage.py collectstatic --no-input
 # Aplica as migrações
 python manage.py migrate
 
-if ! celery -A config.celery worker --loglevel=info --logfile=/var/log/celery/celery.log &; then
-    echo "Falha ao iniciar o Celery"
-    exit 1
-fi
+celery -A config.celery worker --loglevel=info --logfile=/var/log/celery/celery.log &
