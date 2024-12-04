@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import (
@@ -73,3 +75,5 @@ urlpatterns = [
     path("orders/check-driver/<int:driver_id>/", CheckDriverOrdersView.as_view(), name="check_driver_orders"),
     path("order/<int:order_id>/unassign/", UnassignVehicleDriverView.as_view(), name="unassign_vehicle_driver"),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
