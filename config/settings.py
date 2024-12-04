@@ -1,7 +1,6 @@
 from pathlib import Path
 from urllib.parse import urlparse
 from dotenv import load_dotenv
-import dj_database_url
 from decouple import config
 
 load_dotenv()
