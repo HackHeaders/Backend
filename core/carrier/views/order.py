@@ -41,6 +41,13 @@ class OrderViewSet(ModelViewSet):
         )
 
         payment_data1 = create_payment(serializer.validated_data["payment"])
+        print(payment_data1 + "payment_data1")
+
+
+        print(payment_data1[0])
+        print(payment_data1[0]["payment_response"])
+        print(payment_data1[0]["payment_response"]["response"])
+        print(payment_data1[0]["payment_response"]["response"]["id"])
 
         create_payment_data = {
         "payment_id": payment_data1[0]["payment_response"]["response"]["id"],

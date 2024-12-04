@@ -103,6 +103,7 @@ REST_FRAMEWORK = {
     #     "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     # ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
 }
 
 AUTH_PASSWORD_VALIDATORS = [
