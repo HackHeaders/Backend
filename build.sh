@@ -8,4 +8,4 @@ pip install --upgrade pip
 # Instala as dependências
 pip install -r requirements.txt
 
-celery -A config.celery worker --loglevel=info
+celery -A config.celery worker --loglevel=info &
