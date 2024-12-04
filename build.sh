@@ -8,9 +8,4 @@ pip install --upgrade pip
 # Instala as dependências
 pip install -r requirements.txt
 
-python manage.py collectstatic --no-input
-
-# Aplica as migrações
-python manage.py migrate
-
 celery -A config.celery worker --loglevel=info --logfile=/var/log/celery/celery.log &
