@@ -18,6 +18,7 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
 
+
 # CELERY_BROKER_URL = 'amqp://localhost'  
 # CELERY_BROKER_URL = f'amqp://{os.getenv("RABBITMQ_USER")}:{os.getenv("RABBITMQ_PASSWORD")}@{os.getenv("RABBITMQ_HOST")}:{os.getenv("RABBITMQ_PORT")}//'
 
