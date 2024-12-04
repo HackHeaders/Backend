@@ -38,7 +38,7 @@ def populate_drivers(num_drivers=5):
         driver_data = {
             "cnh": fake.random_number(digits=9, fix_len=True),
             "type_cnh": fake.random_element(elements=("A", "B", "C", "D", "E", "AB", "AC", "AD", "AE")),
-            "cpf": fake.cpf(),
+            "cpf": fake.cpf().replace('.', '').replace('-', ''),
             "name": fake.name(),
             "email": email,
             "date_birth": fake.date_of_birth(minimum_age=18, maximum_age=65),
