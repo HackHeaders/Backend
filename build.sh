@@ -13,4 +13,4 @@ python manage.py collectstatic --no-input
 # Aplica as migrações
 python manage.py migrate
 
-pdm manage.py celery -A config.celery worker --loglevel=info
+celery -A config.celery worker --loglevel=info
