@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import urlparse
 from dotenv import load_dotenv
 import dj_database_url
 from decouple import config
@@ -12,7 +13,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
 MODE = os.getenv("MODE", "DEVELOPMENT")
-tmpPostgres = os.getenv("DATABASE_URL")
+DATABASE_URL = urlparse(os.getenv("DATABASE_URL"))
 
 CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://localhost')
 CELERY_ACCEPT_CONTENT = ['json']
@@ -76,11 +77,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 if MODE in ["PRODUCTION", "MIGRATE"]:
     DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DATABASE_URL.path.replace('/', ''),
+        'USER': DATABASE_URL.username,
+        'PASSWORD': DATABASE_URL.password,
+        'HOST': DATABASE_URL.hostname,
+        'PORT': 5432,
+    }
 }
 else:
     DATABASES = {
