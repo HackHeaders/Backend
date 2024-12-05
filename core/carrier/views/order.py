@@ -34,6 +34,9 @@ class OrderViewSet(ModelViewSet):
                 date_effected_colect=serializer.validated_data["delivery"]["date_effected_colect"],
             )
 
+            # Criação do pagamento via MercadoPago
+            payment_data1 = create_payment(serializer.validated_data["payment"])
+
             create_payment_data = {
                 "payment_id": payment_data1[0]["payment_response"]["response"]["id"],
                 "status": payment_data1[0]["payment_response"]["response"]["status"],
