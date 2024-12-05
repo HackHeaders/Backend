@@ -32,3 +32,9 @@ def send_welcome_email(subject, message, from_email, recipient_list, context, us
     except ValueError as e:
         return str(e)
     return "Email enviado com sucesso"
+
+
+@shared_task
+def test_task():
+    print("Task de teste executada!")
+    return "Funcionou!"
