@@ -3,6 +3,7 @@ from core.carrier.models import Order, ItemOrder, Delivery, AddressOrder, Paymen
 from rest_framework.response import Response
 from rest_framework import status
 from core.mercado_pago.payment import create_payment
+from django_filters import rest_framework as django_filters
 from django.db import transaction
 from core.carrier.serializers import (
     OrderListSerializer,
@@ -11,8 +12,22 @@ from core.carrier.serializers import (
     ItemOrderCreateSerializer
 )
 
+from django_filters import rest_framework as filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+class OrderFilter(filters.FilterSet):
+    client_id = filters.NumberFilter(field_name="id_client")
+    driver_id = django_filters.NumberFilter(field_name='id_driver_id')  # Ajustando o campo correto
+
+    class Meta:
+        model = Order
+        fields = ["client_id", "driver_id"]
+
+
 class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = OrderFilter
 
     def get_serializer_class(self):
         if self.action == "create":

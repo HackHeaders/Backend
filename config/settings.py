@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     'django_celery_results',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = "authUser.User"
@@ -105,6 +106,10 @@ REST_FRAMEWORK = {
     # ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    # ],
 }
 
 AUTH_PASSWORD_VALIDATORS = [
