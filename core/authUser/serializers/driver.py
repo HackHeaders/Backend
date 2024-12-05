@@ -23,6 +23,7 @@ class DriverSerializer(ModelSerializer):
     class Meta:
         model = Driver
         fields = "__all__"
+        depth = 1
 
 class DriverCreateSerializer(Serializer):
     cnh = CharField(max_length=9)

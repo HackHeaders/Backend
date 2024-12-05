@@ -16,6 +16,7 @@ class OfficesSerializer(ModelSerializer):
     class Meta:
         model = Offices
         fields = "__all__"
+        depth = 1
 
 class DataEmployeSerializer(ModelSerializer):
     office = OfficesSerializer()

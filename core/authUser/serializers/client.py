@@ -22,6 +22,7 @@ class ClientSerializer(ModelSerializer):
     class Meta:
         model = Client
         fields = "__all__"
+        depth = 1
 
 class ClientPhysicalPersonSerializer(ModelSerializer):
 
