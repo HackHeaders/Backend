@@ -41,7 +41,7 @@ class OrderViewSet(ModelViewSet):
         )
 
         payment_data1 = create_payment(serializer.validated_data["payment"])
-        print(payment_data1 + "payment_data1")
+        print((payment_data1))
 
 
         print(payment_data1[0])
