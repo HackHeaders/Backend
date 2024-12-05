@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,10 +10,14 @@ SECRET_KEY = 'django-insecure-e0h4%b!nv24feq&^vhedqmawyt@z$dgr%a0cyc1exj73pequ7j
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 APPEND_SLASH=False
+MODE = os.getenv("MODE", "DEVELOPMENT")
+DATABASE_URL = urlparse(os.getenv("DATABASE_URL"))
 
-CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://localhost')
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
 
 
 # CELERY_BROKER_URL = 'amqp://localhost'  
@@ -70,12 +75,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
+if MODE in ["PRODUCTION", "MIGRATE"]:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DATABASE_URL.path.replace('/', ''),
+        'USER': DATABASE_URL.username,
+        'PASSWORD': DATABASE_URL.password,
+        'HOST': DATABASE_URL.hostname,
+        'PORT': 5432,
     }
 }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -86,6 +103,7 @@ REST_FRAMEWORK = {
     #     "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     # ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
 }
 
 AUTH_PASSWORD_VALIDATORS = [

@@ -63,7 +63,7 @@ def populate_employees(num_employees=5):
     for _ in range(num_employees):
         email = fake.email()
         employee_data = {
-            "cpf": fake.cpf(),
+            "cpf": fake.cpf().replace('.', '').replace('-', ''),
             "name": fake.name(),
             "email": email,
             "date_birth": fake.date_of_birth(minimum_age=18, maximum_age=65),

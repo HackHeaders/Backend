@@ -62,14 +62,14 @@ def populate_clients(num_clients=10):
         if is_physical:
             client_data.update({
                 "type": "F",
-                "cpf_cnpj": fake.cpf(),
+                "cpf_cnpj": fake.cpf().replace('.', '').replace('-', ''),
                 "date_birth": fake.date_of_birth(minimum_age=18, maximum_age=65),
                 "gender": fake.random_element(elements=("M", "F")),
             })
         else:
             client_data.update({
                 "type": "J",
-                "cpf_cnpj": fake.cnpj(),
+                "cpf_cnpj": fake.cnpj().replace('.', '').replace('-', '').replace('/', ''),
                 "company_name": fake.company(),
             })
 

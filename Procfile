@@ -1,3 +1,3 @@
-web: gunicorn --pythonpath src django_project.wsgi:application
-worker: celery -A django_project worker -l info
-beat: celery -A django_project beat --loglevel=info
+web: gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker
+worker: celery -A config.celery worker -l info
+beat: celery -A config.celery beat --loglevel=info

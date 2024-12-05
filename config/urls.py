@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import (
@@ -67,9 +69,11 @@ urlpatterns = [
     ),
     path('api/webhook/', webhook_receiver, name='webhook_receiver'),
     path('', lambda request: redirect('api/', permanent=True)),
-    path('orders/<int:order_id>/assign/<int:vehicle_id>/<int:driver_id>/', AssignVehicleDriverView.as_view(), name='assign-vehicle-driver'),
-    path('orders/<int:order_id>/status/<int:status_number>/', UpdateOrderStatusView.as_view(), name='update-order-status'),
-    path('orders/<int:order_id>/update-driver-position/', UpdateDriverPositionView.as_view(), name="update_driver_position"),
-    path("orders/check-driver/<int:driver_id>/", CheckDriverOrdersView.as_view(), name="check_driver_orders"),
-    path("order/<int:order_id>/unassign/", UnassignVehicleDriverView.as_view(), name="unassign_vehicle_driver"),
+    path('api/orders/<int:order_id>/assign/<int:vehicle_id>/<int:driver_id>/', AssignVehicleDriverView.as_view(), name='assign-vehicle-driver'),
+    path('api/orders/<int:order_id>/status/<int:status_number>/', UpdateOrderStatusView.as_view(), name='update-order-status'),
+    path('api/orders/<int:order_id>/update-driver-position/', UpdateDriverPositionView.as_view(), name="update_driver_position"),
+    path("api/orders/check-driver/<int:driver_id>/", CheckDriverOrdersView.as_view(), name="check_driver_orders"),
+    path("api/order/<int:order_id>/unassign/", UnassignVehicleDriverView.as_view(), name="unassign_vehicle_driver"),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

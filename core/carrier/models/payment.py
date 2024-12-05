@@ -12,7 +12,7 @@ class Payment(models.Model):
     payer_email = models.EmailField(max_length=50, null=False, blank=False)
     payer_identification_type = models.CharField(max_length=10, null=False, blank=False)
     payer_identification_number = models.CharField(max_length=14, null=False, blank=False)
-    pix_copyPaste = models.CharField(max_length=50, null=True, blank=True)
+    pix_copyPaste = models.TextField(null=True, blank=True)
     date_generated = models.DateTimeField(null=True, blank=False)
     date_update = models.DateTimeField(null=True, blank=False)
     date_expiration = models.DateTimeField(null=True, blank=True)

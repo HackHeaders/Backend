@@ -1,7 +1,5 @@
 {
     "status": 2,
-    "id_vehicle": 1,
-    "id_driver": 1,
     "id_client": 3,
     "delivery": {
       "driver_position": "42.210987, -87.678901",
@@ -21,6 +19,7 @@
       "installments": null
   },
     "address_delivery": {
+      "cep": "78787878",
       "street": "Birch St",
       "number": "333",
       "complement": "",
@@ -30,6 +29,7 @@
       "typeAddress": 0
     },
     "address_collect": {
+      "cep": "78787878",
       "street": "Larch St",
       "number": "444",
       "complement": "",
