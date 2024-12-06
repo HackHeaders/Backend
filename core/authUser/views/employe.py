@@ -41,13 +41,6 @@ class EmployeViewSet(ModelViewSet):
         address_data = serializer.validated_data.pop("address")
         office = serializer.validated_data.pop("office")
 
-        user = User.objects.create_user(
-            username=serializer.validated_data["username"],
-            email=serializer.validated_data["email"],
-            name=serializer.validated_data["name"],
-            telephone=serializer.validated_data["telephone"],
-        )
-
         def create_passage_user(email, user_metadata=None):
             try:
                 psg_user = psg.createUser(
@@ -57,7 +50,15 @@ class EmployeViewSet(ModelViewSet):
             except PassageError as e:
                 raise AuthenticationFailed(detail=str(e))
 
-        create_passage_user(serializer.validated_data["email"])
+        passage_data = create_passage_user(serializer.validated_data["email"])
+
+        user = User.objects.create_user(
+            username=serializer.validated_data["username"],
+            email=serializer.validated_data["email"],
+            name=serializer.validated_data["name"],
+            telephone=serializer.validated_data["telephone"],
+            passage_id=passage_data.id,
+        )
 
         employe_data = {
             "cpf": serializer.validated_data["cpf"],

@@ -36,7 +36,7 @@ class DriverViewSet(ModelViewSet):
             except PassageError as e:
                 raise AuthenticationFailed(detail=str(e))
 
-        create_passage_user(serializer.validated_data["email"])
+        passage_data = create_passage_user(serializer.validated_data["email"])
 
         address_data = serializer.validated_data.pop("address")
 
@@ -45,6 +45,7 @@ class DriverViewSet(ModelViewSet):
             email=serializer.validated_data["email"],
             name=serializer.validated_data["name"],
             telephone=serializer.validated_data["telephone"],
+            passage_id=passage_data.id,
         )
 
         driver_data = {

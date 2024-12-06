@@ -34,7 +34,7 @@ class ClientViewSet(ModelViewSet):
             except PassageError as e:
                 raise AuthenticationFailed(detail=str(e))
 
-        create_passage_user(serializer.validated_data["email"])
+        passage_data = create_passage_user(serializer.validated_data["email"])
 
         address_data = serializer.data.pop("address")
 
@@ -43,6 +43,7 @@ class ClientViewSet(ModelViewSet):
             email=serializer.data["email"],
             name=serializer.data["name"],
             telephone=serializer.data["telephone"],
+            passage_id=passage_data.id,
         )
 
         client = Client.objects.create(user=user)
