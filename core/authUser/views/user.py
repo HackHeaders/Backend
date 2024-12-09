@@ -24,16 +24,18 @@ class UserViewSet(ModelViewSet):
         try:
             user = User.objects.get(id=user_id)
 
-            def delete_passage_user(user_id):
-                try:
-                    psg.deleteUser(user_id)
-                except PassageError as e:
-                    raise AuthenticationFailed(detail=str(e))
+            if user.passage_id:
+                def delete_passage_user(user_passage_id):
+                    try:
+                        psg.deleteUser(user_passage_id)
+                    except PassageError as e:
+                        raise AuthenticationFailed(detail=str(e))
                 
-            delete_passage_user(user.passage_id)
+                delete_passage_user(user.passage_id)
 
             user.delete()
             return Response({"detail": "User deleted successfully"}, status=status.HTTP_200_OK)
+
         except User.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
