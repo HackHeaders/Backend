@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:38411356b93fb881b0a3e646fd5ff0bad5f71fdcbd55d7bb0b02e50fc19ac5ff"
+content_hash = "sha256:a6d5da1a30de50c20cbb799a3dc64e93c1ec31501dffa64c9110aa3a8e4da037"
 
 [[metadata.targets]]
 requires_python = ">=3.12"
@@ -483,6 +483,19 @@ dependencies = [
 files = [
     {file = "flask-3.0.3-py3-none-any.whl", hash = "sha256:34e815dfaa43340d1d15a5c3a02b8476004037eb4840b34910c6e21679d288f3"},
     {file = "flask-3.0.3.tar.gz", hash = "sha256:ceb27b0af3823ea2737928a4d99d125a06175b8512c445cbd9a9ce200ef76842"},
+]
+
+[[package]]
+name = "googlemaps"
+version = "4.10.0"
+requires_python = ">=3.5"
+summary = "Python client library for Google Maps Platform"
+groups = ["default"]
+dependencies = [
+    "requests<3.0,>=2.20.0",
+]
+files = [
+    {file = "googlemaps-4.10.0.tar.gz", hash = "sha256:3055fcbb1aa262a9159b589b5e6af762b10e80634ae11c59495bd44867e47d88"},
 ]
 
 [[package]]

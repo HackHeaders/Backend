@@ -6,6 +6,8 @@ class Delivery(models.Model):
     date_effected_delivery = models.DateTimeField(null=True, blank=True)
     date_preview_colect = models.DateTimeField(null=False, blank=False)
     date_effected_colect = models.DateTimeField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    distance = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.driver_position

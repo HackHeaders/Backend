@@ -12,4 +12,6 @@ class DeliverySerializer(serializers.ModelSerializer):
             "date_effected_delivery",
             "date_preview_colect",
             "date_effected_colect",
+            "address",
+            "distance",
         ]
