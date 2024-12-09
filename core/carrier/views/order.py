@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from core.carrier.models import Order, ItemOrder, Delivery, AddressOrder, Payment
 from rest_framework.response import Response
 from rest_framework import status
-from core.mercado_pago.payment import create_payment
+from core.payments.payment import Payment
 from django_filters import rest_framework as django_filters
 from django.db import transaction
 from core.carrier.serializers import (
@@ -50,7 +50,7 @@ class OrderViewSet(ModelViewSet):
             )
 
             # Criação do pagamento via MercadoPago
-            payment_data1 = create_payment(serializer.validated_data["payment"])
+            payment_data1 = Payment.create_payment(self, serializer.validated_data["payment"])
 
             create_payment_data = {
                 "payment_id": payment_data1[0]["payment_response"]["response"]["id"],

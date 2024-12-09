@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'core.authUser',
     'core.carrier',
     'core.populate',
+    'core.payments',
     "django_extensions",
     "corsheaders",
     "drf_spectacular",
