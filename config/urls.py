@@ -34,7 +34,9 @@ from core.carrier.utils import (
     UpdateOrderStatusView,
     UpdateDriverPositionView,
     CheckDriverOrdersView,
-    UnassignVehicleDriverView
+    UnassignVehicleDriverView,
+    AssingDriverView,
+    AssingVehicleView,
 )
 
 router = DefaultRouter()
@@ -74,6 +76,8 @@ urlpatterns = [
     path('api/orders/<int:order_id>/update-driver-position/', UpdateDriverPositionView.as_view(), name="update_driver_position"),
     path("api/orders/check-driver/<int:driver_id>/", CheckDriverOrdersView.as_view(), name="check_driver_orders"),
     path("api/order/<int:order_id>/unassign/", UnassignVehicleDriverView.as_view(), name="unassign_vehicle_driver"),
+    path("api/orders/<int:order_id>/assign-driver/<int:driver_id>/", AssingDriverView.as_view(), name="assign_driver"),
+    path("api/orders/<int:order_id>/assign-vehicle/<int:vehicle_id>/", AssingVehicleView.as_view(), name="assign_vehicle"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
