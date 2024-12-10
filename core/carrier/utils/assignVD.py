@@ -23,6 +23,8 @@ class AssingDriverView(APIView):
         order = get_object_or_404(Order, id=order_id)
         driver = get_object_or_404(Driver, id=driver_id)
 
+        print(order.status) #retornou status 5
+
         order.id_driver = driver
 
         order.save()
