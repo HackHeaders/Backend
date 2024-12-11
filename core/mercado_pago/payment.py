@@ -2,7 +2,7 @@ import json
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
-from core.carrier.models import Payment
+from core.carrier.models import Payment, Order
 import mercadopago
 
 sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
@@ -134,6 +134,8 @@ def update_payment(payment_id):
             status=payment.get('status'),
             date_update=payment.get('date_last_updated')
         )
+        Order.objects.filter(id_payment=payment_id).update(status=1)
+        return Response(payment, status=status.HTTP_200_OK)
         
     except mercadopago.exceptions.BadRequest:
         return Response({"message": "Invalid request to payment provider"}, status=status.HTTP_400_BAD_REQUEST)
