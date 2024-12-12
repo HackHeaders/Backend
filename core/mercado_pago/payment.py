@@ -1,9 +1,11 @@
 import json
 from django.conf import settings
 from rest_framework.response import Response
+from rest_framework.exceptions import ErrorDetail
 from rest_framework import status
 from core.carrier.models import Payment, Order
 import mercadopago
+
 
 sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
@@ -85,32 +87,6 @@ def get_payment(payment_id):
     else:
         return Response (payment, status=status.HTTP_400_BAD_REQUEST)
     
-def update_payment(payment_id):
-    try:
-        payment = Payment.objects.get(payment_id=payment_id)
-    except Payment.DoesNotExist:
-        return Response({"message": "Payment not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    try:
-        payment_response = sdk.payment().get(payment_id)
-        response_data = payment_response.get("response", {})
-        
-        if payment_response.get('status') == 200:
-            Payment.objects.filter(payment_id=payment_id).update(
-                status=response_data.get('status'),
-                date_update=response_data.get('date_last_updated')
-            )
-            return Response(response_data, status=status.HTTP_200_OK)
-        else:
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-    
-    except mercadopago.exceptions.BadRequest:
-        return Response({"message": "Invalid request to payment provider"}, status=status.HTTP_400_BAD_REQUEST)
-    
-    except Exception as e:
-        return Response({"message": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-
 def verify_data(data):
     required_fields = [
         'transaction_amount', 'description', 'payment_method_id'
@@ -142,6 +118,6 @@ def update_payment(payment_id):
         Order.objects.filter(id_payment=payment_select).update(status=2)
         return Response(payment, status=status.HTTP_200_OK)
         
-    except mercadopago.exceptions.BadRequest:
-        return Response({"message": "Invalid request to payment provider"}, status=status.HTTP_400_BAD_REQUEST)
-
+    except ErrorDetail as e:
+        print(e)
+        return Response({"message": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
