@@ -6,7 +6,6 @@ from rest_framework import status
 from core.carrier.models import Payment, Order
 import mercadopago
 
-
 sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
 # @atomic.transaction
@@ -118,6 +117,6 @@ def update_payment(payment_id):
         Order.objects.filter(id_payment=payment_select).update(status=2)
         return Response(payment, status=status.HTTP_200_OK)
         
-    except ErrorDetail as e:
+    except ValueError as e:
         # Retorna apenas o texto do erro
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
