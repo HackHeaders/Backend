@@ -134,7 +134,12 @@ def update_payment(payment_id):
             status=payment.get('status'),
             date_update=payment.get('date_last_updated')
         )
-        Order.objects.filter(id_payment=payment_id).update(status=2)
+
+        payment_select = Payment.objects.get(payment_id=payment_id).id
+
+        print(payment_select)
+
+        Order.objects.filter(id_payment=payment_select).update(status=2)
         return Response(payment, status=status.HTTP_200_OK)
         
     except mercadopago.exceptions.BadRequest:
