@@ -19,7 +19,7 @@ class AddressOrder(models.Model):
         choices=typeAddress.choices,
         default=typeAddress.DELIVERY,
     )
-    id_order = models.ForeignKey(Order, on_delete=models.PROTECT, null=True, blank=True)
+    id_order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.cep
