@@ -25,14 +25,13 @@ class UserViewSet(ModelViewSet):
             user = User.objects.get(id=user_id)
 
             if user.passage_id:
-                def delete_passage_user(user_passage_id):
-                    try:
-                        psg.deleteUser(user_passage_id)
-                    except PassageError as e:
-                        raise AuthenticationFailed(detail=str(e))
-                
-                delete_passage_user(user.passage_id)
-
+                try:
+                    psg.deleteUser(user.passage_id)
+                except PassageError as e:
+                    # Log the error, but proceed to delete the local user
+                    print(f"Passage deletion error: {str(e)}")
+        
+            # Delete the user locally regardless of Passage errors
             user.delete()
             return Response({"detail": "User deleted successfully"}, status=status.HTTP_200_OK)
 
