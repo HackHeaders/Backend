@@ -111,7 +111,7 @@ def update_payment(payment_id):
             date_update=payment.get('date_last_updated')
         )
 
-        payment_select = Payment.objects.get(payment_id=payment_id).id
+        payment_select = Payment.objects.get(payment_id=payment_id).last().id
 
         print(payment_select)
 
@@ -119,5 +119,5 @@ def update_payment(payment_id):
         return Response(payment, status=status.HTTP_200_OK)
         
     except ErrorDetail as e:
-        print(e)
-        return Response({"message": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # Retorna apenas o texto do erro
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
