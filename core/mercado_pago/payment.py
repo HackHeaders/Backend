@@ -110,7 +110,7 @@ def update_payment(payment_id):
             date_update=payment.get('date_last_updated')
         )
 
-        payment_select = Payment.objects.get(payment_id=payment_id).last().id
+        payment_select = Payment.objects.filter(payment_id=payment_id).last().id
 
         print(payment_select)
 
