@@ -52,7 +52,7 @@ class ItemOrder(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     id_order = models.ForeignKey(
-        Order, on_delete=models.PROTECT, null=False, blank=False
+        Order, on_delete=models.CASCADE, null=False, blank=False
     )
 
     def __str__(self):
